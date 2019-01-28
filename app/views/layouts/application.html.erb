@@ -11,6 +11,7 @@
     <% if signed_in? %>
       Signed in as: <%= current_user.email %>
       <%= button_to 'Sign out', sign_out_path, method: :delete %>
+      <%= image_tag current_user.avatar.thumb.to_s %>
     <% else %>
       <%= link_to 'Sign in', sign_in_path %>
       <%= link_to "Sign in with Google", "/auth/google_oauth2" %>

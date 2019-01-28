@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  topic: MyString
+  date: 2019-01-28
+  time: 1
+  event_images: 
+  winning_codes: 
+  schedule: MyString
+  user: one
+
+two:
+  topic: MyString
+  date: 2019-01-28
+  time: 1
+  event_images: 
+  winning_codes: 
+  schedule: MyString
+  user: two

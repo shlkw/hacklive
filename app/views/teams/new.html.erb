@@ -1,0 +1,7 @@
+<h4> Add a new Team </h4>
+<%= form_with model: [@event, @team], scope: :team, local:true do |form| %>
+    <%= render partial: '/teams/form', object: form %>
+    <div>
+        <%= form.submit class: "btn btn-outline-primary" %>
+    </div>
+<% end %>

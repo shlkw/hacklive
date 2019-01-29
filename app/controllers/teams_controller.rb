@@ -16,6 +16,7 @@ class TeamsController < ApplicationController
         team.event_id = params[:event_id]
         if team.save 
             current_user.team_id = team.id
+            current_user.save
             flash[:notice] = 'Team Created'
             redirect_to event_teams_path
         else 

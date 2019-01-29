@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2019_01_29_041306) do
-=======
 ActiveRecord::Schema.define(version: 2019_01_29_060634) do
->>>>>>> added the team table
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,11 +62,8 @@ ActiveRecord::Schema.define(version: 2019_01_29_060634) do
     t.string "remember_token", limit: 128
     t.string "avatar"
     t.string "password_digest"
-<<<<<<< HEAD
-    t.integer "access_level", default: 0
-=======
     t.integer "team_id"
->>>>>>> added the team table
+    t.integer "access_level", default: 0
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end

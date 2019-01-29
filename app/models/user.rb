@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include Clearance::User
-  
+  enum access_level: [:viewer, :player, :super_admin]
 	has_many :authentications, dependent: :destroy
   belongs_to :avatar
   mount_uploader :avatar, AvatarUploader

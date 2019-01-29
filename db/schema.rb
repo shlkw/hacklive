@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_01_29_041306) do
+=======
+ActiveRecord::Schema.define(version: 2019_01_29_060634) do
+>>>>>>> added the team table
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +42,13 @@ ActiveRecord::Schema.define(version: 2019_01_29_041306) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string "group_name"
+    t.string "bio"
+    t.bigint "event_id"
+    t.index ["event_id"], name: "index_teams_on_event_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -55,11 +66,16 @@ ActiveRecord::Schema.define(version: 2019_01_29_041306) do
     t.string "remember_token", limit: 128
     t.string "avatar"
     t.string "password_digest"
+<<<<<<< HEAD
     t.integer "access_level", default: 0
+=======
+    t.integer "team_id"
+>>>>>>> added the team table
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   add_foreign_key "authentications", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "teams", "events"
 end

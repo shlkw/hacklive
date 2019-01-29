@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+   include Clearance::Controller
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users

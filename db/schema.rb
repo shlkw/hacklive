@@ -62,13 +62,12 @@ ActiveRecord::Schema.define(version: 2019_01_29_060634) do
     t.string "remember_token", limit: 128
     t.string "avatar"
     t.string "password_digest"
-    t.integer "team_id"
     t.integer "access_level", default: 0
+    t.integer "team_id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   add_foreign_key "authentications", "users"
   add_foreign_key "events", "users"
-  add_foreign_key "teams", "events"
 end

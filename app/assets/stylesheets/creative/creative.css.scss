@@ -12,7 +12,6 @@ body {
 
 body {
     font-family: Merriweather,'Helvetica Neue',Arial,sans-serif;
-    background-color: #A9A9A9;
 
 }
 
@@ -79,6 +78,10 @@ aside {
     padding: 0;
 }
 
+#mainNav {
+
+    background-color: #A9A9A9;
+}
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;

@@ -1,6 +1,9 @@
 class TeamsController < ApplicationController
 
     def index 
+    @teams = Team.all
+    @users = User.where(team_id: @teams)
+
     end
 
     def show 

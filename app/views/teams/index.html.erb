@@ -1,1 +1,32 @@
-heil
+<br />
+<h1>Teams</h1>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Team name</th>
+      <th>Team bio</th>
+      <th>Team member</th>
+      <th>Team member</th>
+     
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teams.each do |team| %>
+
+      <tr>
+        <td><%= team.group_name %></td>
+        <td><%= team.bio %></td>
+        <% @users.each do |user| %>
+          <td><%= user.first_name%></td>
+        <% end %>
+      </tr>
+ 
+      <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,6 +1,6 @@
 
 
-<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+<nav id="mainNav" class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -15,42 +15,43 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
+            <ul id="menulist" class="nav navbar-nav navbar-right"  >
                 <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
-                </li>
-
-
-                <li>
-                    <a class="page-scroll" href="#services"> Past Events </a>
+                    <a class="page-scroll" href="/#contact"> Contact</a>
                 </li>
                 <li>
+                    <a class="page-scroll" href="/#services"> Past Events </a>
+                </li>
+                <li> <% if signed_in? %>
+                        <%= link_to 'Sign out', sign_out_path, method: :delete %>
+            
+                        Signed in as: <%= current_user.email %>
+                        <%= image_tag current_user.avatar.thumb.to_s %>
 
-                    <% if signed_in? %>
-      Signed in as: <%= current_user.email %>
-      <%= button_to 'Sign out', sign_out_path, method: :delete %>
-      <%= image_tag current_user.avatar.thumb.to_s %>
-    <% else %>
-      <%= link_to 'Sign in', sign_in_path %>
-         </li>
+                      <% else %>
+                        <%= link_to 'Sign in', sign_in_path %>
+                </li>
                 <li>
-      <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
-  </li>
-  <li>
-    <%= link_to "Sign in with Twitch", "/auth/twitch" %>
-  </li>
-    <% end %>
+                      <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
+                </li>
+                <li>
+                      <%= link_to "Sign in with Twitch", "/auth/twitch" %>
+                     <% end %>
+                </li>
+            </ul>
+        </div>
+               <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+
+
+</nav>
+
 
     <div id="flash">
       <% flash.each do |key, value| %>
         <div class="flash <%= key %>"><%= value %></div>
       <% end %>
     </div>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-</nav>
-
+             
+    

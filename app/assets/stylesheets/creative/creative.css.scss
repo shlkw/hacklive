@@ -53,8 +53,9 @@ p {
     line-height: 1.5;
 }
 
-.bg-primary {
-    background-color: #f05f40;
+#about {
+    text-align: center;
+    background-color: #f05f40; 
 }
 
 .bg-dark {
@@ -82,6 +83,7 @@ aside {
 
     background-color: #A9A9A9;
 }
+
 .navbar-default {
     border-color: rgba(34,34,34,.05);
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
@@ -91,16 +93,25 @@ aside {
     transition: all .35s;
 }
 
+
 .navbar-default .navbar-header .navbar-brand {
+    position: fixed;
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
+    font-size: 25px;
     color: #f05f40;
 }
 
 .navbar-default .navbar-header .navbar-brand:hover,
 .navbar-default .navbar-header .navbar-brand:focus {
     color: #eb3812;
+}
+
+
+
+.navbar-default #menulist {
+  display:inline;
 }
 
 .navbar-default .nav > li>a,
@@ -126,6 +137,8 @@ aside {
 .navbar-default .nav>li.active>a:focus:hover {
     background-color: transparent;
 }
+
+
 
 @media(min-width:768px) {
     .navbar-default {
@@ -177,6 +190,7 @@ aside {
         color: #f05f40;
     }
 }
+
 
 header {
     position: relative;
@@ -455,6 +469,8 @@ fieldset[disabled] .btn-primary.active {
 .btn-xl {
     padding: 15px 30px;
 }
+
+
 
 ::-moz-selection {
     text-shadow: none;

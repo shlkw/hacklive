@@ -14,8 +14,15 @@ class TeamsController < ApplicationController
     def create  
         team = Team.new(team_params)
         team.event_id = params[:event_id]
+        teammate_email = team.teammate
+        teammate_id = User.find_by(email: teammate_email)
+    
+        team.teammate = teammate_id.id
+        
         if team.save 
             current_user.team_id = team.id
+            teammate_id.team_id = team.id
+            teammate_id.save
             current_user.save
             flash[:notice] = 'Team Created'
             redirect_to event_teams_path
@@ -35,7 +42,8 @@ class TeamsController < ApplicationController
     def team_params
         params.require(:team).permit(
             :group_name, 
-            :bio
+            :bio,
+            :teammate
         )
     end
 end

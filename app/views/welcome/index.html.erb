@@ -1,21 +1,5 @@
 
 
-Welcome to Hackathon
-
-
-
-<% if current_user == nil %>
-  <h3>Welcome New User</h3>
-<% elsif current_user.player? %>
-  <h3>Welcome Player get ready to code!</h3>
-  <% elsif current_user.viewer? %>
-  <h3>Welcome Viewer</h3>
-  <% elsif current_user.super_admin? %>
-  <h3>Welcome Super Admin</h3>
-<% else %>
-  <h3>Welcome New</h3>
-<% end %>
-
 <%= render 'header' %>
 <%= render 'bg_primary' %>
 <%= render 'services' %>

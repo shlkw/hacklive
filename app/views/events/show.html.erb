@@ -4,26 +4,26 @@
     sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"   crossorigin="anonymous">
 </head>
 
-<p id="notice"><%= notice %></p>
+<div class="container mb-3">
+  <p id="notice"><%= notice %></p>
 
-<h1>Events</h1>
+  <h1>Events</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Topic</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Winning codes</th>
-      <th>Schedule</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Topic</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Winning codes</th>
+        <th>Schedule</th>
+        <th>User</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-  <tbody>
-
-       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <tbody>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <% @events.event_images.each_with_index do |image, i| %>
             <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
@@ -41,22 +41,23 @@
           </a>
         </div>
 
-      <tr>
-        <td><%= @events.topic %></td>
-        <td><%= @events.date %></td>
-        <td><%= @events.time %></td>
-        <td><%= @events.winning_codes %></td>
-        <td><%= @events.schedule %></td>
-        <td><%= @events.user %></td>
+        <tr>
+          <td><%= @events.topic %></td>
+          <td><%= @events.date %></td>
+          <td><%= @events.time %></td>
+          <td><%= @events.winning_codes %></td>
+          <td><%= @events.schedule %></td>
+          <td><%= @events.user %></td>
 
-        <td><%= link_to 'Edit', edit_event_path(@events.id) %></td>
-        <td><%= link_to 'Destroy', @events, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+          <td><%= link_to 'Edit', edit_event_path(@events.id), class: "btn btn-outline-primary mr-3"%></td>
+          <td><%= link_to 'Destroy', @events, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+        </tr>
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
 
-<br>
+  <br>
 
-<%= link_to 'New Event', new_event_path %>
-
+  <%= link_to 'New Event', new_event_path, class: "btn btn-outline-info" %>
+  <%= link_to "View Teams", event_teams_path(@event), class: "btn btn-outline-secondary" %>
+</div>

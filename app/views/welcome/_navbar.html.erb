@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" <%= link_to "HackLive", root_path %> </a>
+            <a class="navbar-brand" <%= link_to "HackLive", root_path %> </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,13 +20,27 @@
                     <a class="page-scroll" href="/#contact"> Contact</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/#services"> Past Events </a>
+                    <a class="page-scroll" href="/events"> Hackathons </a>
                 </li>
                 <li> <% if signed_in? %>
                         <%= link_to 'Sign out', sign_out_path, method: :delete %>
             
                         Signed in as: <%= current_user.email %>
                         <%= image_tag current_user.avatar.thumb.to_s %>
+
+
+ <% if current_user == nil %>
+  <h5>Welcome New User</h5>
+<% elsif current_user.player? %>
+  <h5>Welcome Player get ready to code!</h5>
+  <% elsif current_user.viewer? %>
+  <h5>Welcome Viewer</h5>
+  <% elsif current_user.super_admin? %>
+  <h5>Welcome Super Admin</h5>
+<% else %>
+  <h5>Welcome New</h5>
+<% end %>
+
 
                       <% else %>
                         <%= link_to 'Sign in', sign_in_path %>

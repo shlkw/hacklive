@@ -54,7 +54,7 @@ p {
 }
 
 #about {
-    text-align: center;
+
     background-color: #f05f40; 
 }
 
@@ -95,7 +95,7 @@ aside {
 
 
 .navbar-default .navbar-header .navbar-brand {
-    position: fixed;
+    position: absolute;
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
@@ -150,11 +150,11 @@ aside {
         color: rgba(255,255,255,.7);
     }
 
-    .navbar-default .navbar-header .navbar-brand:hover,
+ 
+   .navbar-default .navbar-header .navbar-brand:hover,
     .navbar-default .navbar-header .navbar-brand:focus {
         color: #fff;
     }
-
     .navbar-default .nav > li>a,
     .navbar-default .nav>li>a:focus {
         color: rgba(255,255,255,.7);
@@ -262,6 +262,7 @@ header .header-content .header-content-inner p {
 
 .section-heading {
     margin-top: 0;
+    color: white;
 }
 
 .service-box {
@@ -312,7 +313,7 @@ header .header-content .header-content-inner p {
 
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category,
 .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
-    padding: 0 15px;
+    padding: 0;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
 }
 
@@ -328,9 +329,10 @@ header .header-content .header-content-inner p {
 
 .portfolio-box:hover .portfolio-box-caption {
     opacity: 1;
+    width: 300px;
 }
 
-@media(min-width:768px) {
+@media(min-width:768ipx) {
     .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
         font-size: 16px;
     }
@@ -338,6 +340,12 @@ header .header-content .header-content-inner p {
     .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
         font-size: 22px;
     }
+}
+
+
+.img-responsive {
+  width: 300px;
+  height: 200px;
 }
 
 .call-to-action h2 {

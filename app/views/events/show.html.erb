@@ -5,25 +5,34 @@
 </head>
 
 <div class="container mb-3">
-  <p id="notice"><%= notice %></p>
 
-  <h1>Events</h1>
+  <style>
+  .carousel-inner {
+  width:640px;
+  height:360px;
+}</style>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Topic</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Winning codes</th>
-        <th>Schedule</th>
-        <th>User</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
+<p id="notice"> <%= notice %></p>
 
-    <tbody>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+<h1> Welcome to the Next Academy Hackathon! </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Winning codes</th>
+      <th>Schedule</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
           <div class="carousel-inner">
             <% @events.event_images.each_with_index do |image, i| %>
             <div class="carousel-item <%= i == 0 ? 'active' : '' %>">

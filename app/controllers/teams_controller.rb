@@ -2,7 +2,6 @@ class TeamsController < ApplicationController
 
     def index 
         @teams = Team.all
-        @users = User.where(team_id: @teams)
     end
 
     def show 
@@ -35,7 +34,15 @@ class TeamsController < ApplicationController
         end
     end
 
+    def edit 
+        @team = Team.find(params[:id])
+        @event = Event.find(params[:event_id])
+    end
+
     def update 
+        @team = Team.find(params[:id])
+        @team.update(team_params)
+        redirect_to event_teams_path(event_id: params[:event_id], id: params[:id])
     end
 
     def destroy

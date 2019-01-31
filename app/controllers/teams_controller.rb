@@ -1,12 +1,13 @@
 class TeamsController < ApplicationController
 
     def index 
-    @teams = Team.all
-    @users = User.where(team_id: @teams)
-
+        @teams = Team.all
+        @users = User.where(team_id: @teams)
     end
 
     def show 
+        @team = Team.find(params[:id])
+        @users = User.where(team_id: @team)
     end
     
     def new 
@@ -17,11 +18,10 @@ class TeamsController < ApplicationController
     def create  
         team = Team.new(team_params)
         team.event_id = params[:event_id]
-        teammate_email = team.teammate
+        teammate_email = team.teammate_email
         teammate_id = User.find_by(email: teammate_email)
-    
-        team.teammate = teammate_id.id
-        
+        team.teammate_email = teammate_id.id
+              
         if team.save 
             current_user.team_id = team.id
             teammate_id.team_id = team.id
@@ -46,7 +46,7 @@ class TeamsController < ApplicationController
         params.require(:team).permit(
             :group_name, 
             :bio,
-            :teammate
+            :teammate_email
         )
     end
 end

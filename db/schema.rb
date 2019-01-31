@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_29_060634) do
+ActiveRecord::Schema.define(version: 2019_01_31_063440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_01_29_060634) do
     t.string "group_name"
     t.string "bio"
     t.bigint "event_id"
+    t.string "teammate_email"
     t.index ["event_id"], name: "index_teams_on_event_id"
   end
 
@@ -64,6 +65,7 @@ ActiveRecord::Schema.define(version: 2019_01_29_060634) do
     t.string "password_digest"
     t.integer "access_level", default: 0
     t.integer "team_id"
+    t.string "twitch_id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end

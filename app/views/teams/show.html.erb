@@ -1,0 +1,28 @@
+<div class="container">
+    <div>
+        Team Number: <%= @team.id %> <br>
+        Team Name: <%= @team.group_name %> <br>
+        <%= @team.bio %> <br>
+
+        Team Members: <br>
+        <% @users.each_with_index do |user,index| %>
+            <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %> ,
+            Twitch ID: <%= user.twitch_id %> <br>
+        <% end %>
+    </div>
+    <div class="d-flex">
+        <% @users.each do |user| %>
+            <div class="mr-2">
+                <iframe
+                    src="https://player.twitch.tv/?channel=<%="#{user.twitch_id}"%>&muted=true"
+                    height="300"
+                    width="600"
+                    frameborder="0"
+                    scrolling="no"
+                    allowfullscreen="true">
+                </iframe>
+            </div>
+        <% end %>
+    </div>
+</div>
+

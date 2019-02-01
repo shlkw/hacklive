@@ -22,6 +22,9 @@
           <td>
             <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
+          <td>
+            <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
+          </td>
       </tr>
     <% end %>
   </tbody>

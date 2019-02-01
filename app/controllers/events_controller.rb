@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :require_login
+  before_action :authorize_viewer, except: [:index,:show]
+  before_action :authorize_player, except: [:index,:show]
+
   # GET /events
   # GET /events.json
   def index
@@ -71,5 +73,13 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(:topic, :date, :time, {event_images: []}, :event_images_cache, :winning_codes, :schedule, :user_id)
+    end
+
+    def authorize_viewer
+            redirect_to events_path if current_user.viewer?
+    end
+
+    def authorize_player
+            redirect_to events_path if current_user.player?
     end
 end

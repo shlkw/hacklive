@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+    before_action :authorize_viewer, except: [:index,:show]
+    before_action :authorize_player, except: [:index,:show,:new,:create]
 
     def index 
         @teams = Team.all
@@ -55,5 +57,14 @@ class TeamsController < ApplicationController
             :bio,
             :teammate_email
         )
+    end
+
+    def authorize_viewer
+            redirect_to event_teams_path if current_user.viewer?
+    end
+
+    def authorize_player
+            redirect_to event_teams_path if current_user.player? &&
+            current_user != current_user.team_id
     end
 end

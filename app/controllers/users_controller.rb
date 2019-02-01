@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
    include Clearance::Controller
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :authorize_viewer, except: [:index,:show,:create, :new]
+  before_action :authorize_player, except: [:index,:show,:create, :new]
   # GET /users
   # GET /users.json
   def index
@@ -71,5 +72,15 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password, :address, :phone_number, :date_of_birth, :about, :user_avatar, :avatar, :avatar_cache, :password_digest)
+    end
+
+    def authorize_viewer
+            redirect_to users_path if current_user.viewer? &&
+            current_user != @user
+    end
+
+    def authorize_player
+            redirect_to users_path if current_user.player? &&
+            current_user != @user
     end
 end

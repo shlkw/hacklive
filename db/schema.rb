@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_063440) do
     t.string "avatar"
     t.string "password_digest"
     t.integer "access_level", default: 0
-    t.integer "team_id"
+    t.integer "team_id", default: 0
     t.string "twitch_id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"

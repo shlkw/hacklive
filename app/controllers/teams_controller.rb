@@ -2,9 +2,10 @@ class TeamsController < ApplicationController
     before_action :set_team, except: [:index,:show,:new,:create]
     before_action :authorize_viewer, except: [:index,:show,:new,:create]
     before_action :authorize_player, except: [:index,:show,:new,:create]
-    
     def index 
         @teams = Team.all
+        @users = User.all
+        @event = Event.find(params[:event_id])
     end
 
     def show 
@@ -17,7 +18,8 @@ class TeamsController < ApplicationController
         @event = Event.find(params[:event_id])
     end
 
-    def create  
+    def create
+        event = Event.find(params[:event_id])  
         team = Team.new(team_params)
         team.event_id = params[:event_id]
         teammate_email = team.teammate_email
@@ -26,7 +28,9 @@ class TeamsController < ApplicationController
               
         if team.save 
             current_user.team_id = team.id
+            current_user.event_id = event.id
             teammate_id.team_id = team.id
+            teammate_id.event_id = event.id
             teammate_id.save
             current_user.save
             flash[:notice] = 'Team Created'
@@ -62,6 +66,7 @@ class TeamsController < ApplicationController
 
     def set_team
       @team = Team.find(params[:id])
+
     end
 
     def authorize_viewer

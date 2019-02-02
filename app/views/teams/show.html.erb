@@ -35,7 +35,7 @@
 </tr>
 </thead>
 <tbody>
-<%rss = RSS::Parser.parse('https://github.com/shlkw/hacklive/commits/master.atom', false)%>
+<%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
 <% rss.entries.each do |item|%>
 <tr>
 <td><a href= "<%= item.link.href%>"> <%= item.title.content%> </a></td>

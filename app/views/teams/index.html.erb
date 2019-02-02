@@ -12,13 +12,17 @@
   </thead>
 
   <tbody>
-    <% @teams.each_with_index do |team, index| %>      
+    
+    <% @teams.each_with_index do |team, index| %> 
+      <% if team.event_id == @event.id  %>   
       <tr>
           <td><%= team.group_name %></td>
           <td><%= team.bio %></td> 
+          
           <% team.users.each do |user| %>
-              <td><%= user.first_name %></td>
-          <% end %>
+          <td><%= user.first_name %></td>
+              <% end %>
+             
           <td>
             <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
@@ -26,6 +30,7 @@
             <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
       </tr>
+    <%end%>
     <% end %>
   </tbody>
 </table>

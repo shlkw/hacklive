@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_063440) do
     t.string "bio"
     t.bigint "event_id"
     t.string "teammate_email"
+    t.string "github_link"
     t.index ["event_id"], name: "index_teams_on_event_id"
   end
 

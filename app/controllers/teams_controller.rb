@@ -1,7 +1,8 @@
 class TeamsController < ApplicationController
-    before_action :authorize_viewer, except: [:index,:show]
+    before_action :set_team, except: [:index,:show,:new,:create]
+    before_action :authorize_viewer, except: [:index,:show,:new,:create]
     before_action :authorize_player, except: [:index,:show,:new,:create]
-
+    
     def index 
         @teams = Team.all
     end
@@ -59,12 +60,17 @@ class TeamsController < ApplicationController
         )
     end
 
+    def set_team
+      @team = Team.find(params[:id])
+    end
+
     def authorize_viewer
-            redirect_to event_teams_path if current_user.viewer?
+            redirect_to event_teams_path if current_user.viewer? &&
+            current_user.team_id != @team.id
     end
 
     def authorize_player
             redirect_to event_teams_path if current_user.player? &&
-            current_user != current_user.team_id
+            current_user.team_id != @team.id
     end
 end

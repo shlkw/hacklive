@@ -60,7 +60,8 @@ class TeamsController < ApplicationController
         params.require(:team).permit(
             :group_name, 
             :bio,
-            :teammate_email
+            :teammate_email,
+            :github_link
         )
     end
 

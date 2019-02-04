@@ -31,7 +31,7 @@ Event.create(topic: 'Wordplay', date: Date.new(2017,10,03), time: '8:00 AM', eve
 Event.create(topic: 'Next Academy', date: Date.new(2019,1,31), time: '8:00 AM ', event_images: [Rails.root.join("app/assets/images/creative/portfolio/NextAcademy.jpg").open], description: 'Develop an innovative application or solution that enhances either a consumer’s purchasing experience (instore or online) OR provides benefit to small or medium size business owner. The tools could range from a unique consumer facing application, to a business strategic solution that merchants could utilize to improve their business practices that drive sales and customer satisfaction. You my utilize any advanced hardware your team has available (such as beacons or wearables), and any Worldpay API feature including Vault, Recurring Billing, as well as 50 user defined fields that could be leveraged for data analytics or business insights.', prize:'The Winning Team will win $15,000 in cash, to be split between all team members.', user_id: 1)
 
 
-Team.create(group_name: "Code Breakers", bio: "Dedicated team of coders looking for a new challange", event_id: Event.last.id, github_link:'shlkw/hacklive')
+Team.create(group_name: "Code Breakers", bio: "Dedicated team of coders looking for a new challenge", event_id: Event.last.id, github_link:'shlkw/hacklive')
 
 Team.create(group_name: "Pac Man Bytes", bio: "Eat, Sleep, Code, Repeat", event_id: Event.last.id, github_link:'shlkw/hacklive')
 

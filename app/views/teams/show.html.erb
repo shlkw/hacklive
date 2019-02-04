@@ -41,10 +41,8 @@
 <th>Submitted Time</th>
 </tr>
 </thead>
-<<<<<<< HEAD
-=======
 <br />
->>>>>>> eac642c4fe309f1b3c136902f45367c4cb545d75
+
 <tbody>
 <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
 <% rss.entries.each do |item|%>
@@ -73,26 +71,9 @@
 
 
 </tbody>
-<<<<<<< HEAD
-
-
-
-
-
 </table>
-
-</div>
-=======
-
-
-
-
-
-</table>
-
 </div>
 </body>
->>>>>>> eac642c4fe309f1b3c136902f45367c4cb545d75
 </div>
 
 <style>

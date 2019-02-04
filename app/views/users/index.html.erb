@@ -8,7 +8,6 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Email</th>
-      <th>Password</th>
       <th>Address</th>
       <th>Phone number</th>
       <th>Date of birth</th>
@@ -25,12 +24,11 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
-        <td><%= user.password %></td>
         <td><%= user.address %></td>
         <td><%= user.phone_number %></td>
         <td><%= user.date_of_birth %></td>
         <td><%= user.about %></td>
-        <td><%= user.user_avatar %></td>
+        <td><%= image_tag user.avatar.thumb.to_s %></td>
         
         <td><%= link_to 'View Account', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
@@ -44,3 +42,36 @@
 <br>
 
 <%= link_to 'New User', new_user_path %>
+<style>
+ table {
+
+  border-spacing: 1em .5em;
+  padding: 0 2em 1em 0;
+  font-size: 16px;
+  border-collapse: collapse;
+  border: 1px solid black;
+  text-align: center;
+  background: #d2d2d2;
+  width: 90%;
+}
+
+td {
+  
+  
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+thead{
+  background: #FFA500;
+  border: 1px solid black;
+}
+
+th{
+  text-align: center;
+}
+
+
+</style>

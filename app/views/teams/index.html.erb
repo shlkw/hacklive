@@ -3,9 +3,12 @@
 <table>
   <thead>
     <tr>
-      <th>Team name</th>
-      <th>Team bio</th>
-      <th>Team members</th>
+      <th width="20%">Team name</th>
+      <th width="20%">Team bio</th>
+      <th width="20%">Team members</th>
+      <th width="20%">Avatar</th>
+      <th width="20%">Team members</th>
+      <th width="20%">Avatar</th>
      
       <th colspan="3"></th>
     </tr>
@@ -16,20 +19,23 @@
     <% @teams.each_with_index do |team, index| %> 
       <% if team.event_id == @event.id  %>   
       <tr>
-          <td><%= team.group_name %></td>
-          <td><%= team.bio %></td> 
+          <td class="table-info"><%= team.group_name %></td>
+          <td class="table-info"><%= team.bio %></td> 
           
           <% team.users.each do |user| %>
-          <td><%= user.first_name %></td>
+          <td class="table-info"><%= user.first_name %></td>
+          <td class = "table-info"> <%= image_tag user.avatar.thumb.to_s %></td>
               <% end %>
 
           <td>
             <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
-             <% if current_user.team_id == team.id %>
+             <% if current_user.team_id == team.id || current_user.super_admin? %>
           <td>
             <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
+          <%else%>
+          <td>&nbsp;</td>
           
       </tr>
     <%end%>
@@ -38,3 +44,36 @@
   </tbody>
 </table>
 
+<style>
+ table {
+
+  border-spacing: 1em .5em;
+  padding: 0 2em 1em 0;
+  font-size: 16px;
+  border-collapse: collapse;
+  border: 1px solid black;
+  text-align: center;
+  background: #d2d2d2;
+  width: 90%;
+}
+
+td {
+  
+  
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+thead{
+  background: #FFA500;
+  border: 1px solid black;
+}
+
+th{
+  text-align: center;
+}
+
+
+</style>

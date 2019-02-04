@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+
+  body {
+      background-color: #f2f2f2;
+  }
+
+  footer {
+      background-color: #f05f40;
+      margin-top: 0px;
+      padding: 0px;
+      bottom: 0; left: 0; right: 0;
+      height: 50px;
+      position: fixed;
+    }
+
+.challengetitle {
+	color: black;
+	font-family: Orbitron;
+	text-align: right;
+
+}
+
+.section-heading {
+	font-size: 100px;
+	font-family: "Source Code Pro";
+}
+
+.section-caption {
+	font-size: 30px;
+	color:white ;
+	font-family: "Source Code Pro";
+}
+
+  #carousel {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  -webkit-perspective: 80px;
+  perspective: 800px;
+  position: relative;
+  top: 10px;
+  margin-bottom: 200px;
+  width: 1000px;
+}
+
+#container {
+  display: block;
+  height: 200px;
+  margin: 0 auto;
+  transform: rotateY(0deg);
+  -webkit-transform-origin: center bottom 0;
+  transform-origin: center bottom 0;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  width: 200px;
+}
+
+item {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  transform: translateZ(400px);
+  position: absolute;
+}
+
+item img { width: 100%; }
+
+.tc-btn-container {
+  display: block;
+  float: left;
+  height: 35px;
+  margin-top: -12.5px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+}
+
+.tc-next {
+  background-color: #333;
+  color: white;
+  display: block;
+  float: right;
+  font-size: 12px;
+  padding: 10px;
+  width: auto;
+  cursor: pointer;
+}
+
+.tc-prev {
+  background-color: #333;
+  color: white;
+  display: block;
+  float: left;
+  font-size: 12px;
+  padding: 10px;
+  width: auto;
+  cursor: pointer;
+}
+  

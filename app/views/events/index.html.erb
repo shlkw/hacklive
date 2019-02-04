@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag 'events.css' %>
  
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,6 @@
   <title>All Events</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
@@ -53,197 +53,91 @@ $(document).ready(function($){
 
 </head>
 
-<section id="about">
-    <div class="container text-center">
-    <h1 class="section-heading">HackLive Events</h1>      
-    <h2 class="section-heading"> All of the online events that we have hosted  </h2>
+<body>
+
+<section id="eventheading" >
+    <div class="container text-center" >
+    <h1 class="section-heading">HACKATHONS</h1> 
+    <h3 class ="section-caption"> live events we hosted in the past and the current challenge </h3>       
   </div>
 </section>
-
-
-  <style>
-
-    footer {
-      background-color: #f2f2f2;
-      margin-top: 50px;
-      padding: 20px;
-      bottom: 0; left: 0; right: 0;
-      height: 70px;
-      position: fixed;
-    }
-
-  #carousel {
-  display: block;
-  height: auto;
-  margin: 0 auto;
-  -webkit-perspective: 80px;
-  perspective: 800px;
-  position: relative;
-  top: 10px;
-  margin-bottom: 300px;
-  width: 1000px;
-}
-
-#container {
-  display: block;
-  height: 200px;
-  margin: 0 auto;
-  transform: rotateY(0deg);
-  -webkit-transform-origin: center bottom 0;
-  transform-origin: center bottom 0;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
-  width: 200px;
-}
-
-item {
-  display: block;
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  transform: translateZ(400px);
-  position: absolute;
-}
-
-item img { width: 100%; }
-
-.tc-btn-container {
-  display: block;
-  float: left;
-  height: 35px;
-  margin-top: -12.5px;
-  position: absolute;
-  top: 50%;
-  width: 100%;
-}
-
-.tc-next {
-  background-color: #333;
-  color: white;
-  display: block;
-  float: right;
-  font-size: 12px;
-  padding: 10px;
-  width: auto;
-  cursor: pointer;
-}
-
-.tc-prev {
-  background-color: #333;
-  color: white;
-  display: block;
-  float: left;
-  font-size: 12px;
-  padding: 10px;
-  width: auto;
-  cursor: pointer;
-}
-  
-  </style>
 
 
 
 <div id="carousel">
   <div id="container" tcc-rotation="0">
-    
 
-
-    <item tc-rotation="120" style="transform: rotateY(120deg) translateZ(400px)"> 
-    <figure>    
-      <%= image_tag "creative/portfolio/CapitalOneHackathon2.jpg", size: "600x200" %>  
-      <figcaption> 
-      <%= link_to "Capital One Dev Exchange", "events/1", method: "get" %>
-      </figcaption> 
-    </figure>
+    <item tc-rotation="120" style="transform: rotateY(120deg) translateZ(500px)"> 
+        <figure>    
+        <%= image_tag "creative/portfolio/CapitalOneHackathon2.jpg", size: "700x150" %>  
+        <center><figcaption > 
+        <%= link_to "Capital One Dev Exchange", "events/1", method: "get", class: 'challengetitle' %>
+        </figcaption> 
+        </figure>
     </item>
 
-    <item tc-rotation="240" style="transform: rotateY(240deg) translateZ(400px)">
-    <figure>
-    <a href ="/events/6" > 
-      <%= image_tag "creative/portfolio/CapitalOneHackathon1.png", size: "600x200"%> </a> 
-     <figcaption> 
-   <%= link_to "Clover Event", "events/2", method: "get" %>
-         </figcaption> 
-       </figure>
+    <item tc-rotation="240" style="transform: rotateY(240deg) translateZ(500px)">
+        <figure>
+        <%= image_tag "creative/portfolio/CapitalOneHackathon1.png", size: "700x150"%>
+        <center><figcaption> 
+        <%= link_to "Clover Event", "events/2", method: "get", class: 'challengetitle' %>
+        </figcaption> 
+        </figure>
     </item>
 
-    <item tc-rotation="180" style="transform: rotateY(180deg) translateZ(400px)">
-    <figure>
-       <a href ="/events/2" >
-    <%= image_tag "creative/portfolio/Synchrony1.jpeg", size: "600x200"%> 
-     <figcaption> 
-   <%= link_to "MasterCard Event", "events/3", method: "get" %>
-         </figcaption>
-  </figure> 
+    <item tc-rotation="180" style="transform: rotateY(180deg) translateZ(500px)">
+        <figure>
+        <%= image_tag "creative/portfolio/Synchrony1.jpeg", size: "700x150"%> 
+        <center><figcaption> 
+        <%= link_to "MasterCard Event", "events/3", method: "get", class: 'challengetitle' %>
+        </figcaption>
+        </figure> 
     </item>
 
-
-
-    <item tc-rotation="0" style="transform: rotateY(0deg)   translateZ(400px)">
+    <item tc-rotation="0" style="transform: rotateY(0deg)   translateZ(500px)">
     <figure>
-         <a href ="/events/7" >
-    <%= image_tag "creative/portfolio/NextAcademy.jpg", size: "600x200"%> </a>
-     <figcaption> 
-   <%= link_to "Next Academy", "events/7", method: "get" %>
-         </figcaption>
-  </figure> 
-    </item>
-
-
-
-    
-    <item tc-rotation="-60" style="transform: rotateY(-60deg) translateZ(400px)">
-      
-    <figure>
-           <a href ="/events/4" >
-    <%= image_tag "creative/portfolio/Worldpay3.jpeg", size: "600x200"%> </a>
-     <figcaption> 
-   <%= link_to "Visa", "events/5", method: "get" %>
-         </figcaption>
-  </figure> 
+        <%= image_tag "creative/portfolio/NextAcademy.jpg", size: "700x150"%> 
+        <center> <figcaption> 
+        <%= link_to "Next Academy", "events/7", method: "get", class: 'challengetitle' %>
+        </figcaption> 
+        </figure> 
     </item>
     
-    <item tc-rotation="60" style="transform: rotateY(60deg)  translateZ(400px)">
-
-    <figure>  
-           <a href ="/events/5" >
-    <%= image_tag "creative/portfolio/CapitalOneHackathon3.jpg", size: "600x200"%> </a>
-     <figcaption> 
-   <%= link_to "Wordplay", "events/6", method: "get" %>
-         </figcaption>
-  </figure> 
+    <item tc-rotation="-60" style="transform: rotateY(-60deg) translateZ(500px)">   
+        <figure>
+        <%= image_tag "creative/portfolio/Worldpay3.jpeg", size: "700x150"%> </a>
+        <center><figcaption> 
+        <%= link_to "Visa", "events/5", method: "get", class: 'challengetitle' %>
+        </figcaption>
+        </figure> 
+    </item>
+    
+    <item tc-rotation="60" style="transform: rotateY(60deg)  translateZ(500px)">
+        <figure>  
+        <%= image_tag "creative/portfolio/CapitalOneHackathon3.jpg", size: "700x150"%> </a>
+        <center><figcaption> 
+        <%= link_to "Wordplay", "events/6", method: "get", class: 'challengetitle' %>
+        </figcaption>
+        </figure> 
     </item>
 
 
-
-
-  </div>
-
+</div>
   <nav class="tc-btn-container">
     <div class="tc-next">NEXT</div>
     <div class="tc-prev">PREV</div>
   </nav>
-
 </div>
-
-
-
 
 
 
 <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 
+</body>
+
 <footer class="container-fluid text-center">
-<h2> <%= link_to 'New Event', new_event_path %> </h2>
+<h2>  <%= link_to 'New Event', new_event_path, {:style=>'color:#f05f40'} %> </h2>
 </footer>
 
 
-
-
 </html>
-
-
-
-

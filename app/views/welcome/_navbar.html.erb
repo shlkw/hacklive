@@ -20,6 +20,10 @@
                     <a class="page-scroll" href="/#contact"> Contact</a>
                 </li>
                 <li>
+                   <%= link_to 'View Account', users_path, method: :get %>
+                </li>
+                
+                <li>
                     <a class="page-scroll" href="/events"> Hackathons </a>
                 </li>
                 <li> <% if signed_in? %>

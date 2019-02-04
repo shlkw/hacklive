@@ -28,9 +28,8 @@
                 </li>
                 <li> <% if signed_in? %>
                         <%= link_to 'Sign out', sign_out_path, method: :delete %>
-            
-                        Signed in as: <%= current_user.email %>
-                        <%= image_tag current_user.avatar.thumb.to_s %>
+                        <%= image_tag current_user.avatar.thumb.to_s, id:'main_avatar' %>
+
 
 
  <% if current_user == nil %>
@@ -44,6 +43,7 @@
 <% else %>
   <h5>Welcome New</h5>
 <% end %>
+Signed in as: <%= current_user.first_name %>
 
 
                       <% else %>

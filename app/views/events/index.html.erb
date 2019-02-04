@@ -8,54 +8,15 @@
 
 <h1> All Events </h1>
 
-
-
-<iframe
-    src="https://player.twitch.tv/?channel=hacklive00&muted=true"
-    height="300"
-    width="600"
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen="true">
-</iframe>
-
-<iframe
-    src="https://player.twitch.tv/?channel=devastian93&muted=true"
-    height="300"
-    width="600"
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen="true">
-</iframe>
-
-<iframe
-    src="https://player.twitch.tv/?channel=wOoKiKi&muted=true"
-    height="300"
-    width="600"
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen="true">
-</iframe>
-
-<iframe
-    src="https://player.twitch.tv/?channel=marcuslee952&muted=true"
-    height="300"
-    width="600"
-    frameborder="0"
-    scrolling="no"
-    allowfullscreen="true">
-</iframe>
-
-
 <table>
   <thead>
     <tr>
       <th>Topic</th>
       <th>Date</th>
       <th>Time</th>
-      <th>Winning codes</th>
-      <th>Schedule</th>
-      <th>User</th>
+      <th>Winning team</th>
+      <th>Description</th>
+      <th>Prize</th>
       <th colspan="3"></th>
   <style>
   .carousel-inner {
@@ -94,12 +55,12 @@
 
 
       <tr>
-        <td><%= event.topic %></td>
-        <td><%= event.date %></td>
-        <td><%= event.time %></td>
-        <td><%= event.winning_codes %></td>
-        <td><%= event.schedule %></td>
-        <td><%= event.user %></td>
+        <td><%= event.topic %></td><br />
+        <td><%= event.date %></td><br />
+        <td><%= event.time %></td><br />
+        <td><%= event.winning_team %></td><br />
+        <td><%= event.description %></td><br />
+        <td><%= event.prize %></td><br />
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>

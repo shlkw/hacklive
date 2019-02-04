@@ -19,38 +19,24 @@
     <% @teams.each_with_index do |team, index| %> 
       <% if team.event_id == @event.id  %>   
       <tr>
-<<<<<<< HEAD
-          <td><%= team.group_name %></td>
-          <td><%= team.bio %></td> 
-          
-          <% team.users.each do |user| %>
-          <td><%= user.first_name %></td>
-=======
           <td class="table-info"><%= team.group_name %></td>
           <td class="table-info"><%= team.bio %></td> 
           
           <% team.users.each do |user| %>
           <td class="table-info"><%= user.first_name %></td>
           <td class = "table-info"> <%= image_tag user.avatar.thumb.to_s %></td>
->>>>>>> eac642c4fe309f1b3c136902f45367c4cb545d75
               <% end %>
 
           <td>
             <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
-<<<<<<< HEAD
-             <% if current_user.team_id == team.id %>
-          <td>
-            <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
-          </td>
-=======
              <% if current_user.team_id == team.id || current_user.super_admin? %>
           <td>
             <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
           <%else%>
           <td>&nbsp;</td>
->>>>>>> eac642c4fe309f1b3c136902f45367c4cb545d75
+
           
       </tr>
     <%end%>

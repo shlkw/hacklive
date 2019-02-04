@@ -25,13 +25,50 @@
         <% end %>
     </div>
 
-        <iframe id="inlineFrameExample"
-            title="Inline Frame Example"
-            width="1200"
-            height="900"
-            scrolling="auto"
-            src="https://swiftcode.herokuapp.com/game">
-        </iframe>
+    <div>
+        <table>
+<thead>
+<tr>
+<th>Commit status</th>
+<th>Teammember</th>
+<th>Submitted Time</th>
+</tr>
+</thead>
+<tbody>
+<%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
+<% rss.entries.each do |item|%>
+<tr>
+<td><a href= "<%= item.link.href%>"> <%= item.title.content%> </a></td>
+<td><%= item.author.name.content%></td>
+<td>  <%(seconds = Time.now.to_i - item.updated.content.to_time.to_i)%> 
+    <%if seconds > 86400 %>
+    <%time = seconds / 24 / 60 / 60 %>
+    <%remainder = (seconds / 24 / 60)%60 %>
+    <%=time%>d and <%=remainder%>h ago.
+  <% elsif seconds > 3600 %>
+  <%time = (seconds / 60 / 60 )%>
+  <%remainder = (seconds /60)%60 %>
+  <%=time%>h and <%=remainder%>m ago.
+  <%else%>
+  <%time = (seconds / 60 )%>
+  <%=time%>m ago
+  <%end%>
+  </td>
 
+</tr>
+ <%end %>
+
+
+
+
+</tbody>
+
+
+
+
+
+</table>
+
+</div>
 </div>
 

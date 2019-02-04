@@ -1,7 +1,11 @@
 class TeamsController < ApplicationController
-
+    before_action :set_team, except: [:index,:show,:new,:create]
+    before_action :authorize_viewer, except: [:index,:show,:new,:create]
+    before_action :authorize_player, except: [:index,:show,:new,:create]
     def index 
         @teams = Team.all
+        @users = User.all
+        @event = Event.find(params[:event_id])
     end
 
     def show 
@@ -14,7 +18,8 @@ class TeamsController < ApplicationController
         @event = Event.find(params[:event_id])
     end
 
-    def create  
+    def create
+        event = Event.find(params[:event_id])  
         team = Team.new(team_params)
         team.event_id = params[:event_id]
         teammate_email = team.teammate_email
@@ -22,7 +27,9 @@ class TeamsController < ApplicationController
         team.teammate_email = teammate_id.id
               
         if team.save 
+            current_user.player!
             current_user.team_id = team.id
+            teammate_id.player!
             teammate_id.team_id = team.id
             teammate_id.save
             current_user.save
@@ -53,7 +60,23 @@ class TeamsController < ApplicationController
         params.require(:team).permit(
             :group_name, 
             :bio,
-            :teammate_email
+            :teammate_email,
+            :github_link
         )
+    end
+
+    def set_team
+      @team = Team.find(params[:id])
+
+    end
+
+    def authorize_viewer
+            redirect_to event_teams_path if current_user.viewer? &&
+            current_user.team_id != @team.id
+    end
+
+    def authorize_player
+            redirect_to event_teams_path if current_user.player? &&
+            current_user.team_id != @team.id
     end
 end

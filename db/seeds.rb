@@ -1,11 +1,8 @@
 #note that since time format was set as integer the format here is adjusted to it, changes would have to be made here when the time format is fixed.
 #if we have time we could change the winning code to and image format as well and get an image of any example complete code
 
-<<<<<<< HEAD
-User.create(first_name: "Kevin", last_name: "Hart", email: "admin1@hacklive.com", password: "hacklive", address: "United Talent Agency, 9336 Civic Center Drive, Beverly Hills, CA 90210-3604, USA", phone_number: "6034234343", date_of_birth: DateTime.new(1979,7,06), about: "Aside from doing comedy, I love coding!", access_level: 2, team_id: 1, twitch_id: "devastian93")
-=======
+
 User.create(first_name: "Kevin", last_name: "Hart", email: "admin1@hacklive.com", password: "hacklive", address: "United Talent Agency, 9336 Civic Center Drive, Beverly Hills, CA 90210-3604, USA", phone_number: "6034234343", date_of_birth: DateTime.new(1979,7,06), about: "Aside from doing comedy, I love coding!", access_level: 2, team_id: 1, twitch_id: "devastian93", avatar: Rails.root.join("app/assets/images/creative/portfolio/kevin.jpg").open)
->>>>>>> eac642c4fe309f1b3c136902f45367c4cb545d75
 
 User.create(first_name: "Wesley", last_name: "Snipes", email: "admin2@hacklive.com", password: "hacklive", address: "Agency for the Performing Arts, 405 S Bevery Drive, Beverly Hills, CA 90212-4425, USA", phone_number: "6123422344", date_of_birth: DateTime.new(1962,7,31), about: "I was convicted of three misdemeanors of willful failure to file a form.", access_level: 1, team_id: 1, twitch_id: "croma233", avatar: Rails.root.join("app/assets/images/creative/portfolio/wesley.jpg").open) 
 
@@ -15,12 +12,9 @@ User.create(first_name: "Calvin", last_name: "Harris", email: "admin4@hacklive.c
 
 User.create(first_name: "Luke", last_name: "Skywalker", email: "admin5@hacklive.com", password: "hacklive", address: "123 Tatooine Drive, Tatooine, Outer Rim", phone_number: "6123442344", date_of_birth: DateTime.new(1119,5,04), about: "These are not the codes you're looking for!", access_level: 1, team_id: 3, twitch_id: "marcuslee952",avatar: Rails.root.join("app/assets/images/creative/portfolio/luke.jpg").open)
 
-<<<<<<< HEAD
-=======
 User.create(first_name: "Anakin", last_name: "Skywalker", email: "admin6@hacklive.com", password: "hacklive", address: "123 Tatooine Drive, Tatooine, Outer Rim", phone_number: "6123352844", date_of_birth: DateTime.new(1100,5,04), about: "These are not the codes you're looking for!", access_level: 1, team_id: 3, twitch_id: "hacklive00",avatar: Rails.root.join("app/assets/images/creative/portfolio/anakin.jpeg").open)
 
 
->>>>>>> eac642c4fe309f1b3c136902f45367c4cb545d75
 Event.create(topic: 'Capital One DevExchange', date: Date.new(2016,11,10), time: '8:00 AM', event_images: [Rails.root.join("app/assets/images/creative/portfolio/CapitalOneHackathon1.png").open,Rails.root.join("app/assets/images/creative/portfolio/CapitalOneHackathon2.jpg").open,Rails.root.join("app/assets/images/creative/portfolio/CapitalOneHackathon3.jpg").open], description: 'Tell us how you can use the Bank Account Starter API to make people’s lives better. Examples: Integrate with a moving company or the USPS address forwarding service. Customers can then change banks at the same time they are moving and changing their address. Integrate with child’s savings services or state college funds, so you can start saving as soon as you have a new addition to your family. Integrate with payroll services or new hire programs to make it easier for direct deposit to be enabled quickly.
 ', prize:'Receive a VIP four-day prize package trip for up to six (6) members of the winning team to go to the 2018 SXSW event! Rub elbows with tech leaders, catch some killer music and cruise the interactive sessions. Each day, you’ll find tech talks, demos, happy hours, and a few surprises. Then come back at night for great music performances. • Four-night accommodations at pre-selected hotel • Airfare (2-way trip) • 3-day tickets to SXSW – Interactive passes / badges • All access day-time events at Capital One House at Antone’s • 1 pass each to an evening ticket (music) at Capital One House at Antone’s • Money20/20 Hackathon winners announced at SXSW 2018', user_id: 1)
 Event.create(topic: 'Clover Event', date: Date.new(2017,10,21), time: '8:00 AM', event_images: [Rails.root.join("app/assets/images/creative/portfolio/Clover1.jpeg").open,Rails.root.join("app/assets/images/creative/portfolio/Clover2.jpeg").open,Rails.root.join("app/assets/images/creative/portfolio/Clover3.jpeg").open], description: 'Solutions for full and quick service restaurants Clover has a huge presence in these industries. Create a solution that helps restaurant owners be successful. For example, your solution could help restaurant owners: • Reduce waste • Improve service times • Track customer satisfaction • Incorporate employee gamification Clover + IoT There are many unexplored ways that connected devices can interact with Clover. Create a solution that uses this technology to help merchants run their businesses efficiently. • Voice Assistant - Google Assistant, Alexa, Siri, Cortana • Beacons • Smart lights', prize:'Win up to $13,624 in prizes from Clover! Each member of the winning team will receive: • $1,500 Gyft card towards travel expenses for an exclusive visit to Clover HQ in Sunnyvale, CA • Spend time with the Clover engineers to learn how to turn your hack into a real product • Be featured in the Clover developer blog and YouTube channel • Networking opportunities with the founders of Clover • Exclusive Clover swag • Catered lunch with the Clover team • Additional $1,000 Gyft card, awarded upon completion of visit to Clover HQ • Vilros Raspberry Pi 3 RetroPie Arcade Gaming Kit with 2 Classic USB Gamepads ($89.99 value) • UE BOOM 2 Phantom Wireless Mobile Bluetooth Speaker ($135.00 value) • Signed NASCAR swag: First Data and Clover are currently sponsoring NASCAR driver Kyle Larson for two races this fall. This prize will feature NASCAR gear that has been personally signed by Kyle. – Priceless!', user_id: 1)
@@ -36,14 +30,10 @@ Event.create(topic: 'Wordplay', date: Date.new(2017,10,03), time: '8:00 AM', eve
 ', user_id: 1)
 Event.create(topic: 'Next Academy', date: Date.new(2019,1,31), time: '8:00 AM ', event_images: [Rails.root.join("app/assets/images/creative/portfolio/NextAcademy.jpg").open], description: 'Develop an innovative application or solution that enhances either a consumer’s purchasing experience (instore or online) OR provides benefit to small or medium size business owner. The tools could range from a unique consumer facing application, to a business strategic solution that merchants could utilize to improve their business practices that drive sales and customer satisfaction. You my utilize any advanced hardware your team has available (such as beacons or wearables), and any Worldpay API feature including Vault, Recurring Billing, as well as 50 user defined fields that could be leveraged for data analytics or business insights.', prize:'The Winning Team will win $15,000 in cash, to be split between all team members.', user_id: 1)
 
-<<<<<<< HEAD
-Team.create(group_name: "Alpha", bio: "Uno", event_id: Event.last.id, github_link:'shlkw/hacklive')
 
-Team.create(group_name: "Beta", bio: "Dos", event_id: Event.last.id, github_link:'shlkw/hacklive')
-=======
 Team.create(group_name: "Code Breakers", bio: "Dedicated team of coders looking for a new challange", event_id: Event.last.id, github_link:'shlkw/hacklive')
 
 Team.create(group_name: "Pac Man Bytes", bio: "Eat, Sleep, Code, Repeat", event_id: Event.last.id, github_link:'shlkw/hacklive')
 
 Team.create(group_name: "405 Found", bio: "Manipulating Midichlorians in Coding ", event_id: Event.last.id, github_link:'shlkw/hacklive')
->>>>>>> eac642c4fe309f1b3c136902f45367c4cb545d75
+

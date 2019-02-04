@@ -27,10 +27,10 @@ class TeamsController < ApplicationController
         team.teammate_email = teammate_id.id
               
         if team.save 
+            current_user.player!
             current_user.team_id = team.id
-            current_user.event_id = event.id
+            teammate_id.player!
             teammate_id.team_id = team.id
-            teammate_id.event_id = event.id
             teammate_id.save
             current_user.save
             flash[:notice] = 'Team Created'

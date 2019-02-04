@@ -28,10 +28,11 @@ ActiveRecord::Schema.define(version: 2019_01_31_063440) do
   create_table "events", force: :cascade do |t|
     t.string "topic"
     t.date "date"
-    t.integer "time"
+    t.string "time"
     t.json "event_images"
-    t.json "winning_codes"
-    t.string "schedule"
+    t.string "winning_team"
+    t.string "description"
+    t.string "prize"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

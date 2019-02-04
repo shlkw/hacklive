@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :time %>
-    <%= form.number_field :time %>
+    <%= form.time_field :time %>
   </div>
 
   <div class="field">
@@ -32,18 +32,22 @@
   </div>
 
   <div class="field">
-    <%= form.label :winning_codes %>
-    <%= form.text_field :winning_codes %>
+    <%= form.label :winning_team %>
+    <%= form.text_field :winning_team %>
   </div>
 
   <div class="field">
-    <%= form.label :schedule %>
-    <%= form.text_field :schedule %>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
   </div>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+    <%= form.label :prize %>
+    <%= form.text_field :prize %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :user_id, :value => current_user.id %>
   </div>
 
   <div class="actions">

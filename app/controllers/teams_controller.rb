@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
     before_action :set_team, except: [:index,:show,:new,:create]
-    before_action :authorize_viewer, except: [:index,:show,:new,:create]
-    before_action :authorize_player, except: [:index,:show,:new,:create]
+    before_action :authorize_viewer, except: [:index,:show,:new,:create,:upvote,:downvote]
+    before_action :authorize_player, except: [:index,:show,:new,:create,:upvote,:downvote]
     def index 
         @teams = Team.all
         @users = User.all
@@ -11,6 +11,7 @@ class TeamsController < ApplicationController
     def show 
         @team = Team.find(params[:id])
         @users = User.where(team_id: @team)
+        @event = Event.find(params[:event_id])
     end
     
     def new 
@@ -55,6 +56,18 @@ class TeamsController < ApplicationController
     def destroy
     end
 
+    def upvote 
+      @team = Team.find(params[:id])
+      @team.upvote_by current_user
+      redirect_to event_team_path
+    end  
+
+    def downvote
+      @team = Team.find(params[:id])
+      @team.downvote_by current_user
+      redirect_to event_team_path
+  end
+
     private
     def team_params
         params.require(:team).permit(
@@ -71,12 +84,12 @@ class TeamsController < ApplicationController
     end
 
     def authorize_viewer
-            redirect_to event_teams_path if current_user.viewer? &&
-            current_user.team_id != @team.id
+        redirect_to event_teams_path if current_user.viewer? &&
+        current_user.team_id != @team.id
     end
 
     def authorize_player
-            redirect_to event_teams_path if current_user.player? &&
-            current_user.team_id != @team.id
+        redirect_to event_teams_path if current_user.player? &&
+        current_user.team_id != @team.id
     end
 end

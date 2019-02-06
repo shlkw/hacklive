@@ -1,5 +1,6 @@
 <div class="container">
    <body>
+    <% if @team.event_id == @event.id  %>
     <div>
         Team Number: <%= @team.id %> <br>
         Team Name: <%= @team.group_name %> <br>
@@ -28,9 +29,19 @@
         channel: "<%="#{user.twitch_id}"%>"
       });
     </script>
+
             </div>
         <% end %>
     </div>
+    <%= link_to like_event_team_path, method: :put do %>
+  Upvote
+  <%= @team.get_upvotes.size %>
+<% end %>
+
+<%= link_to dislike_event_team_path, method: :put do %>
+  Downvote
+  <%= @team.get_downvotes.size %>
+<% end %>
 
     <div>
         <table>
@@ -66,7 +77,7 @@
 
 </tr>
  <%end %>
-
+<%end %>
 
 
 

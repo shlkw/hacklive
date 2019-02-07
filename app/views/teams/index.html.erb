@@ -40,26 +40,26 @@
                       <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "button" %> &nbsp; &nbsp; &nbsp;
                       <i style="font-size:20px; color:black" class="fa"> &#xf139; </i> <%= team.get_upvotes.size %> &nbsp;
                       <i style="font-size:20px; color:black" class="fa"> &#xf13a; </i> <%= team.get_downvotes.size %>
-<%
-=begin
-%>
-                      <% if current_user.team_id == team.id || current_user.super_admin? %>
-                      <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
-                      <%else%>
-                      <%end%>    
-<%
-=end
-%>
+
+                      
+                    
+                     
+
           </td>    
     <%end%>
-       
+       <% if team.event_id == @event.id %>
           <td>
           </td>
 
-    <% team.users.each do |user| %>
+
+   <% team.users.each do |user| %>
+
+
           <td> 
             <div class="team-member">
+
                   <div class="team-img">
+
                      <p class="membername"> <%= user.first_name %> </p>
                         <%= image_tag user.avatar.thumb.to_s %>
                           <div class="team-hover">
@@ -79,6 +79,7 @@
 
       </tr>
     <% end %>
+    <%end%>    
   </tbody>
 </table>
 

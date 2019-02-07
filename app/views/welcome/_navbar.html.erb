@@ -13,7 +13,21 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul id="menulist" class="nav navbar-nav navbar-right"  >
+            <ul id="menulist" class="nav navbar-nav navbar-right" >
+
+
+ <% if current_user == nil %>
+  <h5>Welcome New User </h5>
+<% elsif current_user.player? %>
+<!--   <h5>Welcome Player get ready to code!</h5> -->
+  <%= image_tag current_user.avatar.thumb.to_s, id:'main_avatar' %>
+  <% elsif current_user.viewer? %>
+  <h5>Welcome Viewer</h5>
+  <% elsif current_user.super_admin? %>
+  <h5>Welcome Super Admin</h5>
+<% else %>
+  <h5>Welcome New</h5>
+<% end %>
                 <li>
                     <a class="page-scroll" href="/#contact"> Contact</a>
                 </li>
@@ -27,19 +41,9 @@
                     <% if signed_in? %>
                         <%= link_to 'Sign out', sign_out_path, method: :delete %>
                         <%= image_tag current_user.avatar.thumb.to_s, id:'main_avatar' %>
-                    <% if current_user == nil %>
-                        <h5>Welcome New User</h5>
-                    <% elsif current_user.player? %>
-                        <h5>Welcome Player get ready to code!</h5>    
-                    <% elsif current_user.viewer? %>
-                        <h5>Welcome Viewer</h5>
-                    <% elsif current_user.super_admin? %>
-                        <h5>Welcome Super Admin</h5>
-                    <% else %>
-                        <h5>Welcome New</h5>
-                    <% end %>
-                    Signed in as: <%= current_user.first_name %>
-                    <% else %>
+
+                </li>                   
+                        <% else %>
                         <%= link_to 'Sign in', sign_in_path %>
                 </li>
                 <li>

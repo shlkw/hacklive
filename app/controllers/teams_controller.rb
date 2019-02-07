@@ -30,8 +30,10 @@ class TeamsController < ApplicationController
         if team.save 
             current_user.player!
             current_user.team_id = team.id
+            current_user.event_id = team.event_id
             teammate_id.player!
             teammate_id.team_id = team.id
+            teammate_id.event_id = team.event_id
             teammate_id.save
             current_user.save
             flash[:notice] = 'Team Created'
@@ -66,7 +68,7 @@ class TeamsController < ApplicationController
       @team = Team.find(params[:id])
       @team.downvote_by current_user
       redirect_to event_team_path
-    end
+  end
 
     private
     def team_params
@@ -80,13 +82,16 @@ class TeamsController < ApplicationController
 
     def set_team
       @team = Team.find(params[:id])
+
     end
 
     def authorize_viewer
-        redirect_to event_teams_path if current_user.viewer? && current_user.team_id != @team.id
+        redirect_to event_teams_path if current_user.viewer? &&
+        current_user.team_id != @team.id
     end
 
     def authorize_player
-        redirect_to event_teams_path if current_user.player? && current_user.team_id != @team.id
+        redirect_to event_teams_path if current_user.player? &&
+        current_user.team_id != @team.id
     end
 end

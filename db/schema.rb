@@ -28,11 +28,10 @@ ActiveRecord::Schema.define(version: 2019_02_06_061352) do
   create_table "events", force: :cascade do |t|
     t.string "topic"
     t.date "date"
-    t.string "time"
+    t.integer "time"
     t.json "event_images"
-    t.string "winning_team"
-    t.string "description"
-    t.string "prize"
+    t.json "winning_codes"
+    t.string "schedule"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -44,7 +43,6 @@ ActiveRecord::Schema.define(version: 2019_02_06_061352) do
     t.string "bio"
     t.bigint "event_id"
     t.string "teammate_email"
-    t.string "github_link"
     t.index ["event_id"], name: "index_teams_on_event_id"
   end
 
@@ -66,7 +64,7 @@ ActiveRecord::Schema.define(version: 2019_02_06_061352) do
     t.string "avatar"
     t.string "password_digest"
     t.integer "access_level", default: 0
-    t.integer "team_id", default: 0
+    t.integer "team_id"
     t.string "twitch_id"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"

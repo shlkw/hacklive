@@ -29,15 +29,11 @@
         <% end %>
       </div>
 
-      <%= link_to like_event_team_path, method: :put do %>
-        Upvote
-        <%= @team.get_upvotes.size %>
-      <% end %>
-
-      <%= link_to dislike_event_team_path, method: :put do %>
-        Downvote
-        <%= @team.get_downvotes.size %>
-      <% end %>
+      <%= link_to "Upvote", like_event_team_path, method: :put, remote: :true %>  
+      <%= link_to "Downvote", dislike_event_team_path, method: :put, remote: :true %>
+      <div id="vote">
+        <%= render partial: "vote" %>
+      </div>
 
       <table>
         <thead>

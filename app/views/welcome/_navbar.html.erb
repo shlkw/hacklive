@@ -1,5 +1,3 @@
-
-
 <nav id="mainNav" class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -22,47 +20,40 @@
                 <li>
                    <%= link_to 'View Account', users_path, method: :get %>
                 </li>
-                
                 <li>
                     <a class="page-scroll" href="/events"> Hackathons </a>
                 </li>
-                <li> <% if signed_in? %>
+                <li> 
+                    <% if signed_in? %>
                         <%= link_to 'Sign out', sign_out_path, method: :delete %>
                         <%= image_tag current_user.avatar.thumb.to_s, id:'main_avatar' %>
-
-
-
- <% if current_user == nil %>
-  <h5>Welcome New User</h5>
-<% elsif current_user.player? %>
-  <h5>Welcome Player get ready to code!</h5>
-  <% elsif current_user.viewer? %>
-  <h5>Welcome Viewer</h5>
-  <% elsif current_user.super_admin? %>
-  <h5>Welcome Super Admin</h5>
-<% else %>
-  <h5>Welcome New</h5>
-<% end %>
-Signed in as: <%= current_user.first_name %>
-
-
-                      <% else %>
+                    <% if current_user == nil %>
+                        <h5>Welcome New User</h5>
+                    <% elsif current_user.player? %>
+                        <h5>Welcome Player get ready to code!</h5>    
+                    <% elsif current_user.viewer? %>
+                        <h5>Welcome Viewer</h5>
+                    <% elsif current_user.super_admin? %>
+                        <h5>Welcome Super Admin</h5>
+                    <% else %>
+                        <h5>Welcome New</h5>
+                    <% end %>
+                    Signed in as: <%= current_user.first_name %>
+                    <% else %>
                         <%= link_to 'Sign in', sign_in_path %>
                 </li>
                 <li>
-                      <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
+                    <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
                 </li>
                 <li>
-                      <%= link_to "Sign in with Twitch", "/auth/twitch" %>
-                     <% end %>
+                    <%= link_to "Sign in with Twitch", "/auth/twitch" %>
+                    <% end %>
                 </li>
             </ul>
         </div>
-               <!-- /.navbar-collapse -->
+        <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
-
-
 </nav>
 
 

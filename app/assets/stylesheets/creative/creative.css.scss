@@ -157,7 +157,12 @@ aside {
 
     .navbar-default .navbar-header .navbar-brand {
         color: rgba(255,255,255,.7);
-    }
+        position: absolute;
+        top: 7px;
+        color: #fff;
+        letter-spacing: 2px;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #f05f40, 0 0 30px #f05f40, 0 0 40px #f05f40, 0 0 55px #f05f40, 0 0 75px #f05f40;
+}
 
  
    .navbar-default .navbar-header .navbar-brand:hover,

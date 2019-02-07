@@ -14,23 +14,49 @@ body {
     -moz-font-smoothing: antialiased;
 }
 
+.container {
+  justify-content: center;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.button {
+  border-radius: 12px;
+  background-color: #f05f40; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #ed7f68; 
+  color: white;
+}
+
 .membername {
     text-align: center;
     font-size: 18px;
-    font-family: Monoton;
     position: absolute;
     top: 176px;
-    left: 32px;
-    width: 150px;
-    height: 50px;
-
-font-family: 'Futura';
-color: #fff;
-text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #f05f40, 0 0 30px #f05f40, 0 0 40px #f05f40, 0 0 55px #f05f40, 0 0 75px #f05f40;
+    left: 130px;
+    width: 70px;
+    height: 30px;
+    font-family: 'Futura';
+    color: black;
+    background-color: white;
+    border: 1px solid white;
 }
+
 
 .teamname {
  font-family: Michroma;
+/* background-color: silver;
+ padding: 10px;*/
+
 
 }
 

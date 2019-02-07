@@ -40,8 +40,6 @@
                 <li> 
                     <% if signed_in? %>
                         <%= link_to 'Sign out', sign_out_path, method: :delete %>
-                        <%= image_tag current_user.avatar.thumb.to_s, id:'main_avatar' %>
-
                 </li>                   
                         <% else %>
                         <%= link_to 'Sign in', sign_in_path %>

@@ -1,101 +1,87 @@
-<h1>Teams</h1>
+<head> 
+ <%= stylesheet_link_tag 'teams.css' %>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+
+<body class = "container" >
+
+
+<div class="heading-title text-center">
+      <h3 class="text-uppercase"> <%= @event.topic %> Challenge </h3> 
+      <br/>
+      <p class="p-top-30 half-txt">The teams below are competing LIVE for the grand prize. Click ahead to view the live feed for each team and to cast your votes. </p>
+</div> 
+
 
 <table>
   <thead>
     <tr>
-      <th width="20%">Team name</th>
-      <th width="20%">Team bio</th>
-      <th width="20%">Team members</th>
-      <th width="20%">Avatar</th>
-      <th width="20%">Team members</th>
-      <th width="20%">Avatar</th>
-     
+      <th width="30%">  </th>
+      <th width="10%">  </th>
+      <th width="30%">  </th>
+      <th width="30%">  </th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
-  <tbody>
+             
     
+
+  <tbody> 
+
     <% @teams.each_with_index do |team, index| %> 
-      <% if team.event_id == @event.id  %>   
+    <% if team.event_id == @event.id  %>   
       <tr>
-          <td class="table-info"><%= team.group_name %></td>
-          <td class="table-info"><%= team.bio %></td> 
-          
-          <% team.users.each do |user| %>
-          <td class="table-info"><%= user.first_name %></td>
-          <td class = "table-info"> <%= image_tag user.avatar.thumb.to_s %></td>
-              <% end %>
-
           <td>
-            <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
-          </td>
-             <% if current_user.team_id == team.id || current_user.super_admin? %>
+                <h3 class = "teamname"> Team <%= team.group_name %> </h3>
+                <h4>  <%= team.bio %> </h4> 
+                      <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "button" %> &nbsp; &nbsp; &nbsp;
+                      <i style="font-size:20px; color:black" class="fa"> &#xf139; </i> <%= team.get_upvotes.size %> &nbsp;
+                      <i style="font-size:20px; color:black" class="fa"> &#xf13a; </i> <%= team.get_downvotes.size %>
+<%
+=begin
+%>
+                      <% if current_user.team_id == team.id || current_user.super_admin? %>
+                      <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
+                      <%else%>
+                      <%end%>    
+<%
+=end
+%>
+          </td>    
+    <%end%>
+       
           <td>
-            <%= link_to "Edit", edit_event_team_path(event_id: params[:event_id], id: team.id), class: "btn btn-outline-info" %>
           </td>
-          <%else%>
-          <td>&nbsp;</td>
 
-          
+    <% team.users.each do |user| %>
+          <td> 
+            <div class="team-member">
+                  <div class="team-img">
+                     <p class="membername"> <%= user.first_name %> </p>
+                        <%= image_tag user.avatar.thumb.to_s %>
+                          <div class="team-hover">
+                                <div class="desk">
+                                         <p> <%= user.about %></p>
+                                </div>
+                                <div class="s-link">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                </div>
+                          </div>
+                  </div>
+            </div>
+          </td>
+        <% end %>
+
       </tr>
-    <%end%>
-    <%end%>
     <% end %>
   </tbody>
 </table>
-<br />
-<table>
-  <thead>
-    <tr>
-      <th width="20%">Team name</th>
-      <th width="20%">Team Upvotes</th>
-      <th width="20%">Team Downvotes</th>
-    </tr>
-    
-  </thead>
-  <tbody>
-<% @teams.each do |team| %>
-  <% if team.event_id == @event.id  %> 
-  <tr>
-    <td><%= team.group_name %></td>
-    <td><%= team.get_upvotes.size %></td>
-    <td><%= team.get_downvotes.size %></td>
-  </tr>
-  <%end%>
-  <%end%>
-  </tbody>
-</table>
-<style>
- table {
-
-  border-spacing: 1em .5em;
-  padding: 0 2em 1em 0;
-  font-size: 16px;
-  border-collapse: collapse;
-  border: 1px solid black;
-  text-align: center;
-  background: #d2d2d2;
-  width: 90%;
-}
-
-td {
-  
-  
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid black;
-  font-size: 16px;
-}
-
-thead{
-  background: #FFA500;
-  border: 1px solid black;
-}
-
-th{
-  text-align: center;
-}
 
 
-</style>
+</body>
+

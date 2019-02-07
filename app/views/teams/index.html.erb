@@ -44,7 +44,31 @@
     <% end %>
   </tbody>
 </table>
+<br />
+<table>
+  <thead>
+    <tr>
+      <th width="20%">Team name</th>
+      <th width="20%">Team Upvotes</th>
+      <th width="20%">Team Downvotes</th>
+    </tr>
+    
+  </thead>
+  <tbody>
+<% @teams.each do |team| %>
+  <% if team.event_id == @event.id  %> 
+  <tr>
+    <td><%= team.group_name %></td>
+    <td><%= team.get_upvotes.size %></td>
+    <td><%= team.get_downvotes.size %></td>
 
+      <%else%>
+    <td>&nbsp;</td>
+  </tr>
+  <%end%>
+  <%end%>
+  </tbody>
+</table>
 <style>
  table {
 

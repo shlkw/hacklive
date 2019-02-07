@@ -1,112 +1,102 @@
-<div class="container">
-   <body>
-    <div>
+<body>
+  <div class="container">
+    <% if @team.event_id == @event.id  %>
+      <div>
         Team Number: <%= @team.id %> <br>
         Team Name: <%= @team.group_name %> <br>
         <%= @team.bio %> <br>
-
         Team Members: <br>
         <% @users.each_with_index do |user,index| %>
-            <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %> ,
-            Twitch ID: <%= user.twitch_id %> <br>
+          <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %> ,
+          Twitch ID: <%= user.twitch_id %> <br>    
         <% end %>
-    </div>
-    <div class="d-flex">
+      </div>
+
+      <div>
         <% @users.each do |user| %>
-            <div class="mr-2">
-<!-- Add a placeholder for the Twitch embed -->
-    <div id="twitch-embed"></div>
-
-    <!-- Load the Twitch embed script -->
-    <script src="https://embed.twitch.tv/embed/v1.js"></script>
-
-    <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
-    <script type="text/javascript">
-      new Twitch.Embed("twitch-embed", {
-        width: 1100,
-        height: 480,
-        channel: "<%="#{user.twitch_id}"%>"
-      });
-    </script>
-            </div>
+            <!-- Add a placeholder for the Twitch embed -->
+            <div id="twitch-embed"></div>
+            <!-- Load the Twitch embed script -->
+            <script src="https://embed.twitch.tv/embed/v1.js"></script>
+            <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+            <script type="text/javascript">
+              new Twitch.Embed("twitch-embed", {
+                width: 1100,
+                height: 480,
+                channel: "<%="#{user.twitch_id}"%>"
+              });
+            </script>
         <% end %>
-    </div>
+      </div>
 
-    <div>
-        <table>
-<thead>
-<tr>
-<th>Commit status</th>
-<th>Teammember</th>
-<th>Submitted Time</th>
-</tr>
-</thead>
-<br />
+      <%= link_to like_event_team_path, method: :put do %>
+        Upvote
+        <%= @team.get_upvotes.size %>
+      <% end %>
 
-<tbody>
-<%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
-<% rss.entries.each do |item|%>
-<tr>
-<td><a href= "<%= item.link.href%>"> <%= item.title.content%> </a></td>
-<td><%= item.author.name.content%></td>
-<td>  <%(seconds = Time.now.to_i - item.updated.content.to_time.to_i)%> 
-    <%if seconds > 86400 %>
-    <%time = seconds / 24 / 60 / 60 %>
-    <%remainder = (seconds / 24 / 60)%60 %>
-    <%=time%>d and <%=remainder%>h ago.
-  <% elsif seconds > 3600 %>
-  <%time = (seconds / 60 / 60 )%>
-  <%remainder = (seconds /60)%60 %>
-  <%=time%>h and <%=remainder%>m ago.
-  <%else%>
-  <%time = (seconds / 60 )%>
-  <%=time%>m ago
-  <%end%>
-  </td>
+      <%= link_to dislike_event_team_path, method: :put do %>
+        Downvote
+        <%= @team.get_downvotes.size %>
+      <% end %>
 
-</tr>
- <%end %>
-
-
-
-
-</tbody>
-</table>
-</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Commit status</th>
+            <th>Team Member</th>
+            <th>Submitted Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
+            <% rss.entries.each do |item|%>
+              <tr>
+                <td><a href= "<%= item.link.href %>"><%= item.title.content %> </a></td>
+                <td><%= item.author.name.content%></td>
+                <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
+                  <% if seconds > 86400 %>
+                    <% time = seconds / 24 / 60 / 60 %>
+                    <% remainder = (seconds / 24 / 60)%60 %>
+                    <%=time%>d and <%=remainder%>h ago.
+                  <% elsif seconds > 3600 %>
+                    <% time = (seconds / 60 / 60 ) %>
+                    <% remainder = (seconds /60)%60 %>
+                    <%= time %>h and <%= remainder %>m ago.
+                  <% else %>
+                    <% time = (seconds / 60 ) %>
+                    <%= time %>m ago
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
 </body>
-</div>
 
 <style>
- table {
-
-  border-spacing: 1em .5em;
-  padding: 0 2em 1em 0;
-  font-size: 16px;
-  border-collapse: collapse;
-  border: 1px solid black;
-  text-align: center;
-  background: #d2d2d2;
-  width: 90%;
-}
-
-td {
-  
-  
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid black;
-  font-size: 16px;
-}
-
-thead{
-  background: #FFA500;
-  border: 1px solid black;
-}
-
-th{
-  text-align: center;
-}
-
-
+  table{
+    border-spacing: 1em .5em;
+    padding: 0 2em 1em 0;
+    font-size: 16px;
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    background: #d2d2d2;
+    width: 90%;
+  }
+  td{
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
+    font-size: 16px;
+  }
+  thead{
+    background: #FFA500;
+    border: 1px solid black;
+  }
+  th{
+    text-align: center;
+  }
 </style>
-

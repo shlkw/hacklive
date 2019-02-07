@@ -59,9 +59,13 @@ class TeamsController < ApplicationController
     end
 
     def upvote 
-      @team = Team.find(params[:id])
-      @team.upvote_by current_user
-      redirect_to event_team_path
+        # byebug
+        @team = Team.find(params[:id])
+        @team.upvote_by current_user
+        respond_to do |format|
+            format.js 
+        end
+        # redirect_to event_team_path
     end  
 
     def downvote

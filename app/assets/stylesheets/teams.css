@@ -81,6 +81,7 @@ body {
     display: inline-block;
     line-height: 25px;
     color: #7e7e7e;
+    font-size: 20px;
 }
 .text-uppercase {
     text-transform: uppercase;

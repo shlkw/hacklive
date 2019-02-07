@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
     before_action :set_team, except: [:index,:show,:new,:create]
     before_action :authorize_viewer, except: [:index,:show,:new,:create,:upvote,:downvote]
     before_action :authorize_player, except: [:index,:show,:new,:create,:upvote,:downvote]
+    
     def index 
         @teams = Team.all
         @users = User.all
@@ -59,20 +60,20 @@ class TeamsController < ApplicationController
     end
 
     def upvote 
-        # byebug
         @team = Team.find(params[:id])
         @team.upvote_by current_user
         respond_to do |format|
-            format.js 
+            format.js
         end
-        # redirect_to event_team_path
     end  
 
     def downvote
-      @team = Team.find(params[:id])
-      @team.downvote_by current_user
-      redirect_to event_team_path
-  end
+        @team = Team.find(params[:id])
+        @team.downvote_by current_user
+        respond_to do |format|
+            format.js
+        end
+    end
 
     private
     def team_params
@@ -85,8 +86,7 @@ class TeamsController < ApplicationController
     end
 
     def set_team
-      @team = Team.find(params[:id])
-
+        @team = Team.find(params[:id])
     end
 
     def authorize_viewer

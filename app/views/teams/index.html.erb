@@ -37,9 +37,9 @@
           <td>
                 <h3 class = "teamname"> Team <%= team.group_name %> </h3>
                 <h4>  <%= team.bio %> </h4> 
-                      <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "button" %> &nbsp; &nbsp; &nbsp;
+                      <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "button" %> &nbsp; 
                       <i style="font-size:20px; color:black" class="fa"> &#xf139; </i> <%= team.get_upvotes.size %> &nbsp;
-                      <i style="font-size:20px; color:black" class="fa"> &#xf13a; </i> <%= team.get_downvotes.size %>
+                      <i style="font-size:20px; color:black" class="fa"> &#xf13a; </i> <%= team.get_downvotes.size %> 
           </td>    
     <%end%>
     
@@ -79,54 +79,7 @@
     <%end%>    
   </tbody>
 </table>
-<br />
-<table>
-  <thead>
-    <tr>
-      <th width="20%">Team name</th>
-      <th width="20%">Team Upvotes</th>
-      <th width="20%">Team Downvotes</th>
-    </tr>
-    
-  </thead>
-  <tbody>
-<% @teams.each do |team| %>
-  <% if team.event_id == @event.id  %> 
-  <tr>
-    <td><%= team.group_name %></td>
-    <td><%= team.get_upvotes.size %></td>
-    <td><%= team.get_downvotes.size %></td>
-  </tr>
-  <%end%>
-  <%end%>
-  </tbody>
-</table>
 
-<style>
-  table{
-    border-spacing: 1em .5em;
-    padding: 0 2em 1em 0;
-    font-size: 16px;
-    border-collapse: collapse;
-    border: 1px solid black;
-    text-align: center;
-    background: #d2d2d2;
-    width: 90%;
-  }
 
-  td{    
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid black;
-    font-size: 16px;
-  }
+</body>
 
-  thead{
-    background: #FFA500;
-    border: 1px solid black;
-  }
-
-  th{
-    text-align: center;
-  }
-</style>

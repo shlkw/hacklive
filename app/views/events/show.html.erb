@@ -1,100 +1,80 @@
-<head>
-   <link rel="stylesheet" 
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="
-    sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"   crossorigin="anonymous">
+<head> 
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="js/jquery.waterwheelCarousel.min.js"></script>
+
+<%= stylesheet_link_tag 'eventshow.css' %>
+
+<script>
+$(document).ready(function () {
+  var carousel = $("#carousel").waterwheelCarousel({
+    flankingItems: 3,
+  });
+
+  $('#prev').bind('click', function () {
+    carousel.prev();
+    return false
+  });
+
+  $('#next').bind('click', function () {
+    carousel.next();
+    return false;
+  });
+});
+</script>
+
 </head>
 
-<div class="container mb-3">
-<p id="notice"> <%= notice %></p>
 
 
 
-<table>
-  <thead>
-    <tr>
-      <th width="10%">Topic</th>
-      <th width="10%">Date</th>
-      <th width="10%">Time</th>
-     <!--  <th>Winners</th> -->
-      <th width="50%">Description</th>
-      <th width="20%">Prize</th>
+<body>
+<h1> <%= @events.topic %> </h1>
 
-    </tr>
-  </thead>
+<div id="carousel"> 
+<img src="images/1.jpg" id="item-1" /> 
+<img src="images/2.jpg" id="item-2" /> 
+<img src="images/3.jpg" id="item-3" /> 
+<img src="images/4.jpg" id="item-4" /> 
+<img src="images/5.jpg" id="item-5" /> 
+<img src="images/6.jpg" id="item-6" /> 
+<img src="images/7.jpg" id="item-7" /> 
+<img src="images/8.jpg" id="item-8" /> 
+<img src="images/9.jpg" id="item-9" /> 
+</div>
+<a href="#" id="prev">Prev</a>
+<a href="#" id="next">Next</a>
 
-  <tbody>
 
-       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
-          <div class="carousel-inner">
-            <% @events.event_images.each_with_index do |image, i| %>
-            <div class="carousel-item <%= i == 0 ? 'active' : '' %>">
-              <%= image_tag image.url, class: "d-block w-100" %>
-            </div>
-            <%end%>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-
-        <tr>
-          <td><%= @events.topic %></td>
-          <td><%= @events.date %></td>
-          <td><%= @events.time %></td>
-          <!-- <td><%= @events.winning_team %></td> -->
-          <td class="Description"><%= @events.description %></td>
-          <td><%= @events.prize %></td>
-          <% if current_user.super_admin?%>
-          <td><%= link_to 'Edit', edit_event_path(@events.id), class: "btn btn-outline-primary mr-3"%></td>
-          <td><%= link_to 'Destroy', @events, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
-        </tr>
-<%end%>
-    </tbody>
-  </table>
-
-  <br>
-
-  <%= link_to 'Join the challenge', new_event_team_path(@event), class: "btn btn-outline-info" %>
-  <%= link_to "View Teams", event_teams_path(@event), class: "btn btn-outline-secondary" %>
+<div id= "imagesContainer">
+    <%= link_to 'Join the challenge', new_event_team_path(@event), class: "button" %>
+    <%= link_to "View Teams", event_teams_path(@event), class: "button" %>
 </div>
 
-<style>
- table {
 
-  border-spacing: 1em .5em;
-  padding: 0 2em 1em 0;
-  border: 1px solid orange;
-  font-size: 16px;
-  text-align: center;
-  border-collapse: collapse;
-  border: 1px solid black;
-}
+    <div class="container">
+        <h2> When </h2>
+            <h3> Time <%= @events.time %> <br/>
+                 Date: <%= @events.date %> </h3> 
 
-td {
-  
-  background: #d2d2d2;
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid black;
-}
+        <h2> <!-- <td><%= @events.winning_team %></td> --> </h2>
 
-thead{
-  background: #FFA500;
-  border: 1px solid black;
-}
+        <h2> The Challenge  </h2>  
+            <h3> <%= @events.description %> <h3> 
+                  
+        <h2> Prize </h2>
+            <h3> <%= @events.prize %> </h3>
 
-.Description{
-  text-align: justify;
-}
-.carousel-inner {
-  width:100%;
-  height:60%;
-  padding-bottom: 20px;
-}
-</style>
+                  <% if current_user.super_admin?%>
+                  <%= link_to 'Edit', edit_event_path(@events.id), class: "btn btn-outline-primary mr-3"%>
+                  <%= link_to 'Destroy', @events, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
+                  <%end%>
+    </div> <!---- end container ---- >
+
+</body>
+

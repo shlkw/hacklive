@@ -1,8 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
-
 $("#carousel").waterwheelCarousel({
   // number tweeks to change apperance
   startingItem:               1,   // item to place in the center of the carousel. Set to 0 for auto

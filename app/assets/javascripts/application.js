@@ -17,7 +17,6 @@
 //= require jquery3
 //= require bootstrap
 //= require creative.js
-//= require myjs.js
 
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.

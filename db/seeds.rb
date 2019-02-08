@@ -47,6 +47,6 @@ Team.create(group_name: "405 Found", bio: "Manipulating Midichlorians in Coding 
 
 Team.create(group_name: "The Bug Slayers", bio: "Exterminating bugs one at a time!", event_id: 6, github_link:'shlkw/hacklive')
 
-Team.create(group_name: "Bro Code Clan", bio: "Bros before Codes!", event_id: 6, github_link:'shlkw/hacklive')
+Team.create(group_name: "Bro Code Clan", bio: "Uniting coding with the way of life!", event_id: 6, github_link:'shlkw/hacklive')
 
-Team.create(group_name: "Alpha Interface", bio: "Alpha-male coders! Coding our ways into your heart!", event_id: 6, github_link:'shlkw/hacklive')
+Team.create(group_name: "Alpha Interface", bio: "Alpha-male coders!", event_id: 6, github_link:'shlkw/hacklive')

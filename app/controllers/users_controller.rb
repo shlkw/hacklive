@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authorize_viewer, except: [:index,:show,:create, :new]
   before_action :authorize_player, except: [:index,:show,:create, :new]
+  before_action :require_login
   # GET /users
   # GET /users.json
   def index

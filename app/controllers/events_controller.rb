@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :authorize_viewer, except: [:index,:show]
   before_action :authorize_player, except: [:index,:show]
+  before_action :require_login
 
   # GET /events
   # GET /events.json

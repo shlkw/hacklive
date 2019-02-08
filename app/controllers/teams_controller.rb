@@ -3,6 +3,7 @@ class TeamsController < ApplicationController
     before_action :authorize_viewer, except: [:index,:show,:new,:create,:upvote,:downvote]
     before_action :authorize_player, except: [:index,:show,:new,:create,:upvote,:downvote]
     before_action :require_login
+    
     def index 
         @teams = Team.all
         @users = User.all

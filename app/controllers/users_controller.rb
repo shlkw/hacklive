@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authorize_viewer, except: [:index,:show,:create, :new]
   before_action :authorize_player, except: [:index,:show,:create, :new]
-  before_action :require_login
+  
   # GET /users
   # GET /users.json
   def index
@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @team = Team.where(id: @user.team_id).to_a
   end
 
   # GET /users/new

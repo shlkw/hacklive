@@ -1,49 +1,85 @@
+<body></body>
+<div class="usershowpage">
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>First name:</strong>
+  <strong>First name</strong><br/>
   <%= @user.first_name %>
 </p>
 
 <p>
-  <strong>Last name:</strong>
+  <strong>Last name</strong><br/>
   <%= @user.last_name %>
 </p>
 
 <p>
-  <strong>Email:</strong>
+  <strong>User avatar</strong><br/>
+  <div class="user_image">
+  <%= image_tag @user.avatar.thumb.to_s %>
+  </div>
+</p>
+
+<p>
+  <strong>Email</strong><br/>
   <%= @user.email %>
 </p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
 
 <p>
-  <strong>Address:</strong>
+  <div class="address">
+    <strong>Address</strong><br/>
   <%= @user.address %>
+  </div>
 </p>
 
 <p>
-  <strong>Phone number:</strong>
+  <strong>Phone number</strong><br/>
   <%= @user.phone_number %>
 </p>
 
 <p>
-  <strong>Date of birth:</strong>
+  <strong>Date of birth</strong><br/>
   <%= @user.date_of_birth %>
 </p>
 
 <p>
-  <strong>About:</strong>
+  <strong>About</strong><br/>
   <%= @user.about %>
 </p>
 
 <p>
-  <strong>User avatar:</strong>
-  <%= image_tag @user.avatar.to_s %>
+  <% if @user.team_id? %>
+  <strong>Team Name</strong><br/>
+  <%= @team.first[:group_name] %>
+  <%end%>
 </p>
 
+</div> 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+</body>
+
+<style>
+  .usershowpage {
+    text-align: center;
+    width: 100%;
+  }
+
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.5;
+    color: #323232;
+    font-size: 15px;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+  }
+
+  .address {
+    max-width: 170px;
+    margin: 0 auto;
+    float: none;
+  }
+
+</style>

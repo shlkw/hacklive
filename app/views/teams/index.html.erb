@@ -37,9 +37,9 @@
           <td>
                 <h3 class = "teamname"> Team <%= team.group_name %> </h3>
                 <h4>  <%= team.bio %> </h4> 
-                      <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "button" %> &nbsp; &nbsp; &nbsp;
+                      <%= link_to "View Team", event_team_path(event_id: params[:event_id], id: team.id), class: "button" %> &nbsp; 
                       <i style="font-size:20px; color:black" class="fa"> &#xf139; </i> <%= team.get_upvotes.size %> &nbsp;
-                      <i style="font-size:20px; color:black" class="fa"> &#xf13a; </i> <%= team.get_downvotes.size %>
+                      <i style="font-size:20px; color:black" class="fa"> &#xf13a; </i> <%= team.get_downvotes.size %> 
           </td>    
     <%end%>
     

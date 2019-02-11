@@ -1,75 +1,36 @@
 <%= stylesheet_link_tag 'eventshow.css' %>
-<html>
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="sliderstyle.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.transit/0.9.12/jquery.transit.min.js"></script>
+
 </head>
 
-
+<html>
+<body>
 
 <h1> <%= @events.topic %> </h1>
 
+<div class="carouselContainer">
+  <div class="slider">
+              <% @events.event_images.each_with_index do |image, index| %>
+                  <% if index > 2%>
+                    <%= image_tag image.url, style:"height: 400px; width: 520px;" %>
+                  <%end%>
+              <%end%>
 
-<div class="card-carousel"> 
-  <% @events.event_images.each do |image| %>
-   <div class="my-card"> 
-  <%= image_tag image.url, style:"height: 400px; width: 520px;" %>
+            <%= image_tag @events.event_images[1].to_s, style:"height: 400px; width: 520px;",  class: "left" %>
+            <%= image_tag @events.event_images[0].to_s, style:"height: 400px; width: 520px;",  class: "center" %>
+            <%= image_tag @events.event_images[2].to_s, style:"height: 400px; width: 520px;",  class: "right" %>
   </div>
-  <% end %>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script> 
-
-<script>
-$num = $('.my-card').length;
-$even = $num / 2;
-$odd = ($num + 1) / 2;
-
-if ($num % 2 == 0) {
-  $('.my-card:nth-child(' + $even + ')').addClass('active');
-  $('.my-card:nth-child(' + $even + ')').prev().addClass('prev');
-  $('.my-card:nth-child(' + $even + ')').next().addClass('next');
-} else {
-  $('.my-card:nth-child(' + $odd + ')').addClass('active');
-  $('.my-card:nth-child(' + $odd + ')').prev().addClass('prev');
-  $('.my-card:nth-child(' + $odd + ')').next().addClass('next');
-}
-
-$('.my-card').click(function() {
-  $slide = $('.active').width();
-  console.log($('.active').position().left);
-  
-  if ($(this).hasClass('next')) {
-    $('.card-carousel').stop(false, true).animate({left: '-=' + $slide});
-  } else if ($(this).hasClass('prev')) {
-    $('.card-carousel').stop(false, true).animate({left: '+=' + $slide});
-  }
-  
-  $(this).removeClass('prev next');
-  $(this).siblings().removeClass('prev active next');
-  
-  $(this).addClass('active');
-  $(this).prev().addClass('prev');
-  $(this).next().addClass('next');
-});
-
-
-
-// Keyboard nav
-$('html body').keydown(function(e) {
-  if (e.keyCode == 37) { // left
-    $('.active').prev().trigger('click');
-  }
-  else if (e.keyCode == 39) { // right
-    $('.active').next().trigger('click');
-  }
-});
-</script>
 <script type="text/javascript">
-
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);
   _gaq.push(['_setDomainName', 'jqueryscript.net']);
@@ -80,17 +41,131 @@ $('html body').keydown(function(e) {
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
+
 </script>
 
+<script type="text/javascript">
+  
+(function($,document,window,undefined){
 
+  $.fn.MWslider = function(config){
+    
+      this.elements = this.find("img");
+      this.center = this.elements.filter(".center").index();
+
+    var that= this,
+      config=$.fn.MWslider.getConfig(config);
+
+    $.fn.MWslider.setHeight(that);
+    $(window).on("resize",function(){$.fn.MWslider.setHeight(that);});
+
+    var move=$.fn.MWslider.moveSlider;
+    $.fn.MWslider.addNav(that,move,config);
+
+      // Paralax efect
+
+
+    that.mousemove(function(e){
+      $.fn.MWslider.mouseFollow.call(that,e,this.elements);
+    });
+    return that;
+  }
+
+
+  // Ustawia responsywną wysokość slider'a
+
+  $.fn.MWslider.setHeight = function(that){
+
+    var width=that.width(),
+      proportion=parseInt(that.css("max-width"))/parseInt(that.css("max-height"));
+
+      that.css("height",width/proportion);
+    console.log(width,proportion);
+  }
+
+  // Paralax Effect
+
+  $.fn.MWslider.mouseFollow = function(e,elem){
+    var width = $(window).innerWidth();
+      height = this.height();
+    //console.log(width,height);
+  }
+
+  // Dodawanie nawigacji
+
+  $.fn.MWslider.addNav = function(that,f1,settings){
+    var leftArrow=$("<div class='navContainer'><div class='"+settings.nav.leftClass+"'></div>").prependTo(that),
+      rightArrow=$("<div class='navContainer'><div class='"+settings.nav.rightClass+"'></div>").appendTo(that);
+    leftArrow.on("click",function(){f1(that,"left",settings);});
+    rightArrow.on("click",function(){f1(that,"right",settings);});
+  }
+
+
+  // Ustawianie configu
+
+  $.fn.MWslider.getConfig = function(config){
+
+    var defaultConfig = {
+      "duration" : 500,
+      "nav" : {
+        "leftClass":"leftClass",
+        "rightClass":"rightClass" 
+      }
+    }
+
+    if(!(config instanceof Object))
+    {
+      return $.extend({},defaultConfig,config);
+    }
+    else
+    {
+      return $.extend({},defaultConfig);
+    }
+  }
+
+  // Przesówanie slidera
+
+  $.fn.MWslider.checkPosition = function(cent,len){
+      var left=(cent-1)<0 ? len-1 : cent-1,
+      right=(cent+2)>len ? 0 : cent+1,
+      prevleft=(left-1)<0 ? len-1 : left-1,
+      prevright=(right+2)>len ? 0 : right+1
+      return [left,cent,right,prevleft,prevright];
+  }
+
+  $.fn.MWslider.moveSlider = function(that,side,config){
+
+    var len=that.elements.length;
+
+    if(side==="right")
+      that.center= that.center+2>len ? 0 : that.center+1;   
+    else if(side==="left")
+      that.center= that.center-1<0 ? len-1 : that.center-1;
+
+
+    var pos=$.fn.MWslider.checkPosition(that.center,len);
+        
+    that.elements.removeClass();
+    
+    that.elements.eq(pos[2]).addClass("right");       
+    that.elements.eq(pos[1]).addClass("center");
+    that.elements.eq(pos[0]).addClass("left");
+
+  }
+
+  $(window).on("load",function(){
+    $(".slider").MWslider();
+  });
+
+})(jQuery,document,window);
+</script>
 
 <div id= "imagesContainer">
     <%= link_to 'Join the challenge', new_event_team_path(@event), class: "button" %>
     <%= link_to "View Teams", event_teams_path(@event), class: "button" %>
 </div>
 
-    <div class = "container" >
-   
+<div class ="container" >
         <h2> When </h2>
             <h3> <strong> Time: </strong> <%= @events.time %> <br/>
                  <strong> Date: </strong> <%= @events.date %> </h3> 
@@ -98,8 +173,7 @@ $('html body').keydown(function(e) {
         <h2> <!-- <td><%= @events.winning_team %></td> --> </h2>
 
         <h2> The Challenge  </h2>  
-            <h3> <%= @events.description %> <h3> 
-                  
+            <h3> <%= @events.description %> </h3>           
         <h2> Prize </h2>
             <h3> <%= @events.prize %> </h3>
 
@@ -107,9 +181,8 @@ $('html body').keydown(function(e) {
                   <%= link_to 'Edit', edit_event_path(@events.id), class: "btn btn-outline-primary mr-3"%>
                   <%= link_to 'Destroy', @events, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
                   <%end%>
-    </div> <!---- end container ---- >
 
-
+</div> <!---- end container ---- >
 
 </body>
 </html>

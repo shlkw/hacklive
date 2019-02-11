@@ -16,23 +16,19 @@
             <ul id="menulist" class="nav navbar-nav navbar-right" >
 
 
- <% if current_user == nil %>
+<% if current_user == nil %>
   <h5>Welcome New User </h5>
-<% elsif current_user.player? %>
-<!--   <h5>Welcome Player get ready to code!</h5> -->
-  <%= image_tag current_user.avatar.thumb.to_s, id:'main_avatar' %>
-  <% elsif current_user.viewer? %>
-  <h5>Welcome Viewer</h5>
-  <% elsif current_user.super_admin? %>
-  <h5>Welcome Super Admin</h5>
+<% elsif current_user.player? ||current_user.viewer? || current_user.super_admin?%>
+    <%=link_to current_user do%>
+  <%= image_tag current_user.avatar.thumb.to_s, class:'main_avatar' %>
+    <%end%>
 <% else %>
   <h5>Welcome New</h5>
-<% end %>
-                <li>
+<% end %>                <li>
                     <a class="page-scroll" href="/#contact"> Contact</a>
                 </li>
                 <li>
-                   <%= link_to 'View Account', users_path, method: :get %>
+                   <%= link_to 'View Account', current_user, method: :get %>
                 </li>
                 <li>
                     <a class="page-scroll" href="/events"> Hackathons </a>

@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authorize_viewer, except: [:index,:show,:create, :new]
   before_action :authorize_player, except: [:index,:show,:create, :new]
+  
   # GET /users
   # GET /users.json
   def index
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @team = Team.where(id: @user.team_id).to_a
   end
 
   # GET /users/new
@@ -43,6 +45,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
+
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }

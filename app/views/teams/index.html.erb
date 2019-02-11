@@ -1,15 +1,23 @@
+<html>
 <head> 
  <%= stylesheet_link_tag 'teams.css' %>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 
 
-<body class = "container" >
+<body>
 
+<div class = "container" >
 
 <div class="heading-title text-center">
+
       <h3 class="text-uppercase"> <%= @event.topic %> Challenge </h3> 
       <br/>
       <p class="p-top-30 half-txt">The teams below are competing LIVE for the grand prize. Click ahead to view the live feed for each team and to cast your votes. </p>
@@ -80,6 +88,13 @@
   </tbody>
 </table>
 
+<div class="back">
+<%= link_to 'Back', events_path %>
+</div>
+</div>
+
+
+</div>
 
 </body>
-
+</html>

@@ -1,49 +1,89 @@
-<p id="notice"><%= notice %></p>
+<body>
+  <p id="notice"><%= notice %></p>
+<div class="row">
 
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+    <p class= 'col-lg-4'>
+      
+      <div class="user_image">
+      <%= image_tag @user.avatar.thumb.to_s, class:'user_image'%>
+      </div>
+    </p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
+    <div class ='col-lg-4'>
+    <p>
+      <strong>Name </strong><br/>
+      <%= @user.first_name %>
+    
+      <%= @user.last_name %><br/>
+    
 
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @user.phone_number %>
-</p>
 
-<p>
-  <strong>Date of birth:</strong>
-  <%= @user.date_of_birth %>
-</p>
+    
+      <strong>Email</strong><br/>
+      <%= @user.email %><br/>
+    
 
-<p>
-  <strong>About:</strong>
-  <%= @user.about %>
-</p>
 
-<p>
-  <strong>User avatar:</strong>
-  <%= image_tag @user.avatar.to_s %>
-</p>
+    
+      
+        <strong>Address</strong><br/>
+      <%= @user.address %><br/>
+      
+   
 
+    
+      <strong>Phone number</strong><br/>
+      <%= @user.phone_number %><br/>
+   
+
+    
+      <strong>Date of birth</strong><br/>
+      <%= @user.date_of_birth %><br/>
+    
+
+    
+      <strong>About</strong><br/>
+      <%= @user.about %><br/>
+    
+
+   
+      <% if @user.team_id? %>
+      <strong>Team Name</strong><br/>
+      <%= @team.first[:group_name] %>
+      <%end%><br/>
+    </p>
+
+
+    
+    <div class= col-lg centre>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+</div>
+</div>
+</body>
+
+<style>
+  .usershowpage {
+    text-align: center;
+    width: 100%;
+  }
+
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.5;
+    color: #323232;
+    font-size: 15px;
+    font-weight: 400;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+  }
+
+.user_image {
+  border-radius: 40px;
+}
+
+</style>

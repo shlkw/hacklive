@@ -1,48 +1,65 @@
+<!-- Latest compiled and minified CSS -->
+
+
 <body>
-  <div class="container">
+ 
+ <div class="team-info">
+   
     <% if @team.event_id == @event.id  %>
-      <div>
-        Team Number: <%= @team.id %> <br>
-        Team Name: <%= @team.group_name %> <br>
-        <%= @team.bio %> <br>
+        Team Number: <br><%= @team.id %> <br>
+        Team Name: <br><%= @team.group_name %> <br>
+        Team Info: <br><%= @team.bio %> <br>
         Team Members: <br>
         <% @users.each_with_index do |user,index| %>
-          <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %> ,
-          Twitch ID: <%= user.twitch_id %> <br>    
+          <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %><br>
+          Twitch ID: <br><%= user.twitch_id %> <br>    
         <% end %>
-      </div>
-
-      <div>
+ </div>
+       <br>
+      
         <% @users.each do |user| %>
             <!-- Add a placeholder for the Twitch embed -->
+            <div class="divider">
             <div id="twitch-embed"></div>
             <!-- Load the Twitch embed script -->
             <script src="https://embed.twitch.tv/embed/v1.js"></script>
             <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+              <div id="twitch">
             <script type="text/javascript">
               new Twitch.Embed("twitch-embed", {
-                width: 1100,
-                height: 480,
+                width: 800,
+                height: 800,
                 channel: "<%="#{user.twitch_id}"%>"
               });
             </script>
+          </div>
+              </div>
         <% end %>
-      </div>
 
-      <%= link_to "Upvote", like_event_team_path, method: :put, remote: :true %>  
-      <%= link_to "Downvote", dislike_event_team_path, method: :put, remote: :true %>
+
       <div id="vote">
+      <%= link_to "Upvote", like_event_team_path, method: :put, remote: :true %>  
+      <%= link_to "Downvote", dislike_event_team_path, method: :put, remote: :true %><br>
         <%= render partial: "vote" %>
       </div>
+     
+      <h2>Github Dashboard</h2>
 
-      <table>
+      <div class="tbl-header"> 
+        <table cellpadding="0" cellspacing="0" border="0">
+
         <thead>
+
           <tr>
-            <th>Commit status</th>
-            <th>Team Member</th>
-            <th>Submitted Time</th>
+            <th class="th-sm">GitHub Commit Messages</th>
+            <th class="th-sm">Commited By</th>
+            <th class="th-sm">Submitted At</th>
           </tr>
         </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+       <table cellpadding="0" cellspacing="0" border="0">
         <tbody>
           <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
             <% rss.entries.each do |item|%>
@@ -67,32 +84,108 @@
             <% end %>
         </tbody>
       </table>
+       
     <% end %>
-  </div>
+      
+
+<script>
+  // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+</script>
 </body>
 
 <style>
-  table{
-    border-spacing: 1em .5em;
-    padding: 0 2em 1em 0;
-    font-size: 16px;
-    border-collapse: collapse;
-    border: 1px solid black;
-    text-align: center;
-    background: #d2d2d2;
-    width: 90%;
+  h2{
+  font-size: 30px;
+  color: #e2ab14;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 18px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+/* demo styles */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #6725c4, #c28cdb);
+  background: linear-gradient(to right, #6725c4, #c28cdb);
+  font-family: 'Roboto', sans-serif;
+}
+section{
+  margin: 50px;
+}
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+  iframe{
+    margin-left: 10px;
+
+    
+
   }
-  td{
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid black;
-    font-size: 16px;
+  #twitch-embed{
+    max-width: 2000px;
+    
   }
-  thead{
-    background: #FFA500;
-    border: 1px solid black;
-  }
-  th{
+  #vote{
     text-align: center;
+  }
+  .team-info{
+    text-align: center;
+  }
+  .container{
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
   }
 </style>
+
+
+
+
+
+
+

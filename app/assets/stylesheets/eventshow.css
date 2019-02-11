@@ -1,16 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Orbitron');
 @import url('https://fonts.googleapis.com/css?family=Audiowide');
 
+
+.carouselContainer { 
+  /*max-width:640px;*/
+  margin-bottom: 20px;
+}
+
+
 html, body {
 text-align: center;
-background-color: #F5F5F5;
+
+
+background-color:#f7f7f7;
+
+  background-image: url("https://www.pptgrounds.com/wp-content/uploads/2012/12/Technology-Waves-Lines-Powerpoint-Template.jpg");
+
+
+
   -webkit-perspective: 700px;
      -moz-perspective: 700px;
       -ms-perspective: 700px;
           perspective: 700px;
           /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f1f1f1+50,e1e1e1+51,f6f6f6+100;White+Gloss+%231 */
-
-    background: linear-gradient(to bottom, #ffffcc 0%, #ff9966 100%);
 
 }
 
@@ -51,16 +63,19 @@ margin-top: .5em; color: #666;
 {
   display: inline-block;
   position: relative;
-  margin-top: 100px;
+  margin-top: 30px;
   margin-bottom: 20px;
+  background: white;
 
 }
 
 .container {
   text-align: left;
   width: 800px;
-  height: 400px;
+  max-height: 800px;
+  margin-top: 30px;
   margin-bottom: 0px;
+  background: white;
 }
 
 
@@ -115,124 +130,63 @@ margin-top: .5em; color: #666;
   background: #F39C12;
 }
 
-.card-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  margin-bottom: 150px;
-  margin-left: 65px;
-  margin-right: 65px;
-  margin-top: 30px;
-  position: static ;
-
+.slider{
+  margin:0 auto;
+  position: relative;
+  max-width: 1170px;
+  max-height: 500px;
+  margin-top: 0px;
 }
+.slider>img{
+  box-shadow: 0 29.5px 38px #e0e0e0;
 
-.card-carousel .my-card {
-  height: 20rem;
-  width: 12rem;
-  position: left;
-  z-index: 1;
-  -webkit-transform: scale(0.6) translateY(-2rem);
-  transform: scale(0.6) translateY(-2rem);
-  opacity: 0;
-  cursor: pointer;
-  pointer-events: none;
-  background: #2e5266;
-  background: linear-gradient(to top, #2e5266, #6e8898);
-  transition: 1s;
-}
-
-.card-carousel .my-card:after {
-  content: '';
   position: absolute;
-  height: 2px;
-  width: 100%;
-  border-radius: 100%;
-  background-color: rgba(0,0,0,0.3);
-  bottom: -5rem;
-  -webkit-filter: blur(4px);
-  filter: blur(4px);
+  left:50%;
+  top:50%;
+
+  width:33%;
+  height: 100%;
+  transition: transform .5s;
+  transform: translate(-50%,-50%)scale(1);
+
+  z-index: 0;
 }
-
-.card-carousel .my-card:nth-child(0):before {
-  content: '0';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  font-size: 3rem;
-  font-weight: 300;
-  color: #fff;
-}
-
-.card-carousel .my-card:nth-child(1):before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  font-size: 3rem;
-  font-weight: 300;
-  color: #fff;
-}
-
-.card-carousel .my-card:nth-child(2):before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  font-size: 3rem;
-  font-weight: 300;
-  color: #fff;
-}
-
-.card-carousel .my-card:nth-child(3):before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  font-size: 3rem;
-  font-weight: 300;
-  color: #fff;
-}
-
-.card-carousel .my-card:nth-child(4):before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  font-size: 3rem;
-  font-weight: 300;
-  color: #fff;
-}
-
-
-
-.card-carousel .my-card.active {
-  z-index: 3;
-  -webkit-transform: scale(1) translateY(0) translateX(0);
-  transform: scale(1) translateY(0) translateX(0);
+.slider>img.left , .slider>img.center , .slider>img.right{
+  display:inline-block;
   opacity: 1;
-  pointer-events: auto;
-  transition: 1s;
 }
-
-.card-carousel .my-card.prev, .card-carousel .my-card.next {
+.slider>img.left{
+  transform: translate(-118.25%,-50%);
+  z-index: 1;
+}
+.slider>img.center{
   z-index: 2;
-  -webkit-transform: scale(0.8) translateY(-1rem) translateX(0);
-  transform: scale(0.8) translateY(-1rem) translateX(0);
-  opacity: 0.6;
-  pointer-events: auto;
-  transition: 1s;
+  transform:translate(-50%,-50%) scale(1.1);
 }
+.slider>img.right{
+  transform: translate(18.25%,-50%);
+  z-index: 1;
+}
+.slider>.navContainer{
+  width:49%;
+  height: 100%;
+  position: relative;
+  display:inline-block;
+  z-index: 500;
+}
+.slider>.navContainer>.leftClass,.slider>.navContainer>.rightClass{
+  height: 100%;
+  width:28px;
+  background: url(img/slider-arrow.png) no-repeat center;
+  background-position-x:0;
+  position: absolute;
+  opcity:0.6;
+}
+.slider>.navContainer>.rightClass{
+  right: 0;
+  background-position-x:-30px;
 
-
-
+}
+.slider>.navContainer>.leftClass{
+  left:0;
+}

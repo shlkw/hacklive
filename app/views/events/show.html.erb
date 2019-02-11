@@ -1,53 +1,86 @@
-<head> 
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-<script type="text/javascript" src="js/jquery.waterwheelCarousel.min.js"></script>
-
 <%= stylesheet_link_tag 'eventshow.css' %>
-
-<script>
-$(document).ready(function () {
-  var carousel = $("#carousel").waterwheelCarousel({
-    flankingItems: 3,
-  });
-
-  $('#prev').bind('click', function () {
-    carousel.prev();
-    return false
-  });
-
-  $('#next').bind('click', function () {
-    carousel.next();
-    return false;
-  });
-});
-</script>
-
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 </head>
 
 
 
-
-<body>
 <h1> <%= @events.topic %> </h1>
 
-<div id="carousel"> 
-<img src="images/1.jpg" id="item-1" /> 
-<img src="images/2.jpg" id="item-2" /> 
-<img src="images/3.jpg" id="item-3" /> 
-<img src="images/4.jpg" id="item-4" /> 
-<img src="images/5.jpg" id="item-5" /> 
-<img src="images/6.jpg" id="item-6" /> 
-<img src="images/7.jpg" id="item-7" /> 
-<img src="images/8.jpg" id="item-8" /> 
-<img src="images/9.jpg" id="item-9" /> 
+
+<div class="card-carousel"> 
+  <% @events.event_images.each do |image| %>
+   <div class="my-card"> 
+  <%= image_tag image.url, style:"height: 400px; width: 520px;" %>
+  </div>
+  <% end %>
 </div>
-<a href="#" id="prev">Prev</a>
-<a href="#" id="next">Next</a>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script> 
+
+<script>
+$num = $('.my-card').length;
+$even = $num / 2;
+$odd = ($num + 1) / 2;
+
+if ($num % 2 == 0) {
+  $('.my-card:nth-child(' + $even + ')').addClass('active');
+  $('.my-card:nth-child(' + $even + ')').prev().addClass('prev');
+  $('.my-card:nth-child(' + $even + ')').next().addClass('next');
+} else {
+  $('.my-card:nth-child(' + $odd + ')').addClass('active');
+  $('.my-card:nth-child(' + $odd + ')').prev().addClass('prev');
+  $('.my-card:nth-child(' + $odd + ')').next().addClass('next');
+}
+
+$('.my-card').click(function() {
+  $slide = $('.active').width();
+  console.log($('.active').position().left);
+  
+  if ($(this).hasClass('next')) {
+    $('.card-carousel').stop(false, true).animate({left: '-=' + $slide});
+  } else if ($(this).hasClass('prev')) {
+    $('.card-carousel').stop(false, true).animate({left: '+=' + $slide});
+  }
+  
+  $(this).removeClass('prev next');
+  $(this).siblings().removeClass('prev active next');
+  
+  $(this).addClass('active');
+  $(this).prev().addClass('prev');
+  $(this).next().addClass('next');
+});
+
+
+
+// Keyboard nav
+$('html body').keydown(function(e) {
+  if (e.keyCode == 37) { // left
+    $('.active').prev().trigger('click');
+  }
+  else if (e.keyCode == 39) { // right
+    $('.active').next().trigger('click');
+  }
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 
 
 
@@ -56,11 +89,11 @@ $(document).ready(function () {
     <%= link_to "View Teams", event_teams_path(@event), class: "button" %>
 </div>
 
-
-    <div class="container">
+    <div class = "container" >
+   
         <h2> When </h2>
-            <h3> Time <%= @events.time %> <br/>
-                 Date: <%= @events.date %> </h3> 
+            <h3> <strong> Time: </strong> <%= @events.time %> <br/>
+                 <strong> Date: </strong> <%= @events.date %> </h3> 
 
         <h2> <!-- <td><%= @events.winning_team %></td> --> </h2>
 
@@ -76,5 +109,9 @@ $(document).ready(function () {
                   <%end%>
     </div> <!---- end container ---- >
 
+
+
 </body>
+</html>
+
 

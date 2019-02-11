@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
     before_action :set_team, except: [:index,:show,:new,:create]
-    before_action :authorize_viewer, except: [:index,:show,:new,:create,:upvote,:downvote]
-    before_action :authorize_player, except: [:index,:show,:new,:create,:upvote,:downvote]
+    before_action :authorize_viewer, except: [:index,:show,:new,:create,:upvote,:downvote, :parse]
+    before_action :authorize_player, except: [:index,:show,:new,:create,:upvote,:downvote, :parse]
     before_action :require_login
     
     def index 
@@ -14,6 +14,13 @@ class TeamsController < ApplicationController
         @team = Team.find(params[:id])
         @users = User.where(team_id: @team)
         @event = Event.find(params[:event_id])
+    end
+
+    def parse 
+        @team = Team.find(params[:id])
+        @rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom")
+        # byebug
+        render json: @rss.entries.map{|x| {href: x.link.href, title: x.title.content, author: x.author.name.content, updated: Time.now.to_i - x.updated.content.to_time.to_i}}
     end
     
     def new 
@@ -71,6 +78,13 @@ class TeamsController < ApplicationController
     def downvote
         @team = Team.find(params[:id])
         @team.downvote_by current_user
+        respond_to do |format|
+            format.js
+        end
+    end
+
+    def refresh_part
+        # get whatever data you need to a variable named @data
         respond_to do |format|
             format.js
         end

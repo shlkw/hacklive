@@ -1,53 +1,101 @@
-<body>
-  <div class="container">
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+<body> 
+  <div class="team-info"> 
     <% if @team.event_id == @event.id  %>
-      <div>
-        Team Number: <%= @team.id %> <br>
-        Team Name: <%= @team.group_name %> <br>
-        <%= @team.bio %> <br>
-        Team Members: <br>
-        <% @users.each_with_index do |user,index| %>
-          <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %> ,
-          Twitch ID: <%= user.twitch_id %> <br>    
-        <% end %>
+      Team Number: <br><%= @team.id %> <br>
+      Team Name: <br><%= @team.group_name %> <br>
+      Team Info: <br><%= @team.bio %> <br>
+      Team Members: <br>
+      <% @users.each_with_index do |user,index| %>
+        <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %><br>
+        Twitch ID: <br><%= user.twitch_id %> <br>    
+    <% end %>
+  </div>
+  
+  <div>
+    <% @users.each_with_index do |user, i| %>
+      <!-- Add a placeholder for the Twitch embed -->
+      <div id="twitch-embed-<%= i %>"></div>
+      <!-- Load the Twitch embed script -->
+      <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+      <div id="twitch">
+        <script type="text/javascript">
+          $(window).on("load", function() {
+            new Twitch.Embed("twitch-embed-<%= i %>", {
+              width: 1100,
+              height: 480,
+              channel: "<%="#{user.twitch_id}"%>"
+            });
+          })
+        </script>
       </div>
+    <% end %>
 
-      <div>
-        <% @users.each do |user| %>
-            <!-- Add a placeholder for the Twitch embed -->
-            <div id="twitch-embed"></div>
-            <!-- Load the Twitch embed script -->
-            <script src="https://embed.twitch.tv/embed/v1.js"></script>
-            <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
-            <script type="text/javascript">
-              new Twitch.Embed("twitch-embed", {
-                width: 1100,
-                height: 480,
-                channel: "<%="#{user.twitch_id}"%>"
-              });
-            </script>
-        <% end %>
-      </div>
-
+    <div id="vote">
       <%= link_to "Upvote", like_event_team_path, method: :put, remote: :true %>  
-      <%= link_to "Downvote", dislike_event_team_path, method: :put, remote: :true %>
-      <div id="vote">
-        <%= render partial: "vote" %>
-      </div>
+      <%= link_to "Downvote", dislike_event_team_path, method: :put, remote: :true %><br>
+      <%= render partial: "vote" %>
+    </div>
+  
+    <script>
+        setInterval(
+          function() {
+            $.ajax({
+              method: "get",
+              url: "/rss/team/<%= @team.id %>",
+              dataType: 'json',
+              success: function(data){
 
+                let content = ""
+                data.forEach(function(x){
+                  content += '<tr>'
+                  content += `<td><a href= "${x.href}"> ${x.title} </a></td>`
+                  content += `<td>${x.author}</td>`
+                  
+                  let seconds = x.updated;
+                  
+                  if (seconds > 86400) {
+                    let time = Math.floor(seconds/24/60/60);
+                    let remainder = Math.floor(seconds/24/60)%60;
+                    content += `<td>${time} d and ${remainder} h ago</td>`;
+                  } else if (seconds>3600) {
+                    let time = Math.floor(seconds/60/60);
+                    let remainder = Math.floor(seconds/60)%60;
+                    content += `<td>${time} h ${remainder} m ago </td>`
+                  } else {
+                    let time = seconds;
+                    content += `<td>${Math.floor(time/60)} m ago</td>`
+                  } 
+                  content += `</tr>`                 
+                })
+                $("tbody").html(content)
+              }
+            })}
+        , 10000)
+      </script>
+    
       <table>
+      <h2>Github Dashboard</h2>
+
+      <div class="tbl-header"> 
+        <table cellpadding="0" cellspacing="0" border="0">
         <thead>
           <tr>
-            <th>Commit status</th>
-            <th>Team Member</th>
-            <th>Submitted Time</th>
+            <th class="th-sm">GitHub Commit Messages</th>
+            <th class="th-sm">Commited By</th>
+            <th class="th-sm">Submitted At</th>
           </tr>
         </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+       <table cellpadding="0" cellspacing="0" border="0">
         <tbody>
           <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
             <% rss.entries.each do |item|%>
               <tr>
-                <td><a href= "<%= item.link.href %>"><%= item.title.content %> </a></td>
+                <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
                 <td><%= item.author.name.content%></td>
                 <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
                   <% if seconds > 86400 %>
@@ -67,32 +115,97 @@
             <% end %>
         </tbody>
       </table>
-    <% end %>
-  </div>
+    <% end %> 
+  </div>    
+  <script>
+    // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+    $(window).on("load resize ", function() {
+      var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+      $('.tbl-header').css({'padding-right':scrollWidth});
+    }).resize();
+  </script>
+
 </body>
 
 <style>
-  table{
-    border-spacing: 1em .5em;
-    padding: 0 2em 1em 0;
-    font-size: 16px;
-    border-collapse: collapse;
-    border: 1px solid black;
-    text-align: center;
-    background: #d2d2d2;
-    width: 90%;
+  h2{
+  font-size: 30px;
+  color: #e2ab14;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
+}
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 18px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+
+/* demo styles */
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #6725c4, #c28cdb);
+  background: linear-gradient(to right, #6725c4, #c28cdb);
+  font-family: 'Roboto', sans-serif;
+}
+section{
+  margin: 50px;
+}
+/* for custom scrollbar for webkit browser*/
+
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+  iframe{
+    margin-left: 10px;
   }
-  td{
-    text-align: center;
-    vertical-align: middle;
-    border: 1px solid black;
-    font-size: 16px;
+  #twitch-embed{
+    max-width: 2000px;
+    
   }
-  thead{
-    background: #FFA500;
-    border: 1px solid black;
-  }
-  th{
+  #vote{
     text-align: center;
+  }
+  .team-info{
+    text-align: center;
+  }
+  .container{
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
   }
 </style>

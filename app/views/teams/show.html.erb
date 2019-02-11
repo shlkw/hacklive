@@ -1,56 +1,6 @@
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
+
 <body>
-  <script>
-    // function update(){
-    //   $.ajax({
-    //     type: "GET", 
-    //     url: "@rss",
-    //     timeout: 1000,
-    //     success: function(data){
-    //       $("#update-git").html(" ")
-    //     }
-    //   })
-    // }
-    setTimeout( () => {
-        setInterval(function(){
-          console.log(`${Date.now()}`);
-          lenovo();
-        }, 3000);
-      }, 10000)
-    
-//     call();
-function lenovo() {
-  // console.log(<%=@rss%>)
-  $.ajax({
-          type: "GET",
-          url: "<%= @rss %>",
-          dataType: 'json', 
-          success: function(data){
-            console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx');
-            console.log(data)
-            // $("#update-git").html(`${Date.now()}`)
-          }, 
-          error: function(error) {
-            console.log('errorXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx');
-            console.log(error)
-          }
-        });
-}
-
-
-      // setInterval(function(){alert('Hi')};
-      //   function(){
-      //   $.ajax({
-      //     type: "GET",
-      //     URL: @rss,
-      //     success: function(data){
-      //       $("#update-git").innerHTML("hello")
-      //     }
-      //   })
-      // }
-      // ,3000)
-  
-  </script>
-
   <div class="container">
     <% if @team.event_id == @event.id  %>
       <div>
@@ -65,18 +15,19 @@ function lenovo() {
       </div>
 
       <div>
-        <% @users.each do |user| %>
+        <% @users.each_with_index do |user, i| %>
             <!-- Add a placeholder for the Twitch embed -->
-            <div id="twitch-embed"></div>
+            <div id="twitch-embed-<%= i %>"></div>
             <!-- Load the Twitch embed script -->
-            <script src="https://embed.twitch.tv/embed/v1.js"></script>
             <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
             <script type="text/javascript">
-              new Twitch.Embed("twitch-embed", {
-                width: 1100,
-                height: 480,
-                channel: "<%="#{user.twitch_id}"%>"
-              });
+              $(window).on("load", function() {
+                new Twitch.Embed("twitch-embed-<%= i %>", {
+                  width: 1100,
+                  height: 480,
+                  channel: "<%="#{user.twitch_id}"%>"
+                });
+              })
             </script>
         <% end %>
       </div>
@@ -86,7 +37,19 @@ function lenovo() {
       <div id="vote">
         <%= render partial: "vote" %>
       </div>
-
+      <script>
+        setInterval(
+          function() {
+            $.ajax({
+              method: "get",
+              url: "/rss/team/<%= @team.id %>",
+              dataType: 'json',
+              success: function(data){
+                console.log(data)
+              }
+            })}
+          , 2000)
+      </script>
       <table>
         <thead>
           <tr>
@@ -98,6 +61,7 @@ function lenovo() {
         <div id="update-git">
           <tbody>
             <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
+              
               <% rss.entries.each do |item|%>
                 <tr>
                   <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
@@ -118,6 +82,7 @@ function lenovo() {
                   </td>
                 </tr>
               <% end %>
+
           </tbody>
         </div>
       </table>

@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
     before_action :set_team, except: [:index,:show,:new,:create]
-    before_action :authorize_viewer, except: [:index,:show,:new,:create,:upvote,:downvote]
-    before_action :authorize_player, except: [:index,:show,:new,:create,:upvote,:downvote]
+    before_action :authorize_viewer, except: [:index,:show,:new,:create,:upvote,:downvote, :parse]
+    before_action :authorize_player, except: [:index,:show,:new,:create,:upvote,:downvote, :parse]
     
     def index 
         @teams = Team.all
@@ -13,7 +13,12 @@ class TeamsController < ApplicationController
         @team = Team.find(params[:id])
         @users = User.where(team_id: @team)
         @event = Event.find(params[:event_id])
-        @rss = "https://github.com/#{@team.github_link}/commits/master.atom"
+    end
+
+    def parse 
+        @team = Team.find(params[:id])
+        @rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom")
+        render json: @rss.entries.map{|x| {href: x.link.href, title: x.title.content, author: x.author.name.content, updated: x.updated.content.to_time.to_i}}
     end
     
     def new 

@@ -1,62 +1,68 @@
-<body></body>
-<div class="usershowpage">
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name</strong><br/>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <strong>Last name</strong><br/>
-  <%= @user.last_name %>
-</p>
-
-<p>
-  <strong>User avatar</strong><br/>
-  <div class="user_image">
-  <%= image_tag @user.avatar.thumb.to_s %>
-  </div>
-</p>
-
-<p>
-  <strong>Email</strong><br/>
-  <%= @user.email %>
-</p>
+<body>
+  <p id="notice"><%= notice %></p>
+<div class="row">
 
 
-<p>
-  <div class="address">
-    <strong>Address</strong><br/>
-  <%= @user.address %>
-  </div>
-</p>
 
-<p>
-  <strong>Phone number</strong><br/>
-  <%= @user.phone_number %>
-</p>
+    <p class= 'col-lg-4'>
+      
+      <div class="user_image">
+      <%= image_tag @user.avatar.thumb.to_s, class:'user_image'%>
+      </div>
+    </p>
 
-<p>
-  <strong>Date of birth</strong><br/>
-  <%= @user.date_of_birth %>
-</p>
+    <div class ='col-lg-4'>
+    <p>
+      <strong>Name </strong><br/>
+      <%= @user.first_name %>
+    
+      <%= @user.last_name %><br/>
+    
 
-<p>
-  <strong>About</strong><br/>
-  <%= @user.about %>
-</p>
 
-<p>
-  <% if @user.team_id? %>
-  <strong>Team Name</strong><br/>
-  <%= @team.first[:group_name] %>
-  <%end%>
-</p>
 
-</div> 
+    
+      <strong>Email</strong><br/>
+      <%= @user.email %><br/>
+    
+
+
+    
+      <div class="address">
+        <strong>Address</strong><br/>
+      <%= @user.address %>
+      </div>
+   
+
+    
+      <strong>Phone number</strong><br/>
+      <%= @user.phone_number %><br/>
+   
+
+    
+      <strong>Date of birth</strong><br/>
+      <%= @user.date_of_birth %><br/>
+    
+
+    
+      <strong>About</strong><br/>
+      <%= @user.about %><br/>
+    
+
+   
+      <% if @user.team_id? %>
+      <strong>Team Name</strong><br/>
+      <%= @team.first[:group_name] %>
+      <%end%><br/>
+    </p>
+
+
+    
+    <div class= col-lg centre>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+</div>
+</div>
 </body>
 
 <style>
@@ -76,10 +82,17 @@
     -moz-font-smoothing: antialiased;
   }
 
+.user_image {
+
+  border-radius: 40px;
+
+}
+
   .address {
     max-width: 170px;
     margin: 0 auto;
     float: none;
+
   }
 
 </style>

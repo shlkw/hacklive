@@ -1,55 +1,86 @@
-<!-- Latest compiled and minified CSS -->
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
 
-
-<body>
- 
- <div class="team-info">
-   
+<body> 
+  <div class="team-info"> 
     <% if @team.event_id == @event.id  %>
-        Team Number: <br><%= @team.id %> <br>
-        Team Name: <br><%= @team.group_name %> <br>
-        Team Info: <br><%= @team.bio %> <br>
-        Team Members: <br>
-        <% @users.each_with_index do |user,index| %>
-          <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %><br>
-          Twitch ID: <br><%= user.twitch_id %> <br>    
-        <% end %>
- </div>
-       <br>
-      
-        <% @users.each do |user| %>
-            <!-- Add a placeholder for the Twitch embed -->
-            <div class="divider">
-            <div id="twitch-embed"></div>
-            <!-- Load the Twitch embed script -->
-            <script src="https://embed.twitch.tv/embed/v1.js"></script>
-            <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
-              <div id="twitch">
-            <script type="text/javascript">
-              new Twitch.Embed("twitch-embed", {
-                width: 800,
-                height: 800,
-                channel: "<%="#{user.twitch_id}"%>"
-              });
-            </script>
-          </div>
-              </div>
-        <% end %>
+      Team Number: <br><%= @team.id %> <br>
+      Team Name: <br><%= @team.group_name %> <br>
+      Team Info: <br><%= @team.bio %> <br>
+      Team Members: <br>
+      <% @users.each_with_index do |user,index| %>
+        <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %><br>
+        Twitch ID: <br><%= user.twitch_id %> <br>    
+    <% end %>
+  </div>
+  
+  <div>
+    <% @users.each_with_index do |user, i| %>
+      <!-- Add a placeholder for the Twitch embed -->
+      <div id="twitch-embed-<%= i %>"></div>
+      <!-- Load the Twitch embed script -->
+      <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+      <div id="twitch">
+        <script type="text/javascript">
+          $(window).on("load", function() {
+            new Twitch.Embed("twitch-embed-<%= i %>", {
+              width: 1100,
+              height: 480,
+              channel: "<%="#{user.twitch_id}"%>"
+            });
+          })
+        </script>
+      </div>
+    <% end %>
 
-
-      <div id="vote">
+    <div id="vote">
       <%= link_to "Upvote", like_event_team_path, method: :put, remote: :true %>  
       <%= link_to "Downvote", dislike_event_team_path, method: :put, remote: :true %><br>
-        <%= render partial: "vote" %>
-      </div>
-     
+      <%= render partial: "vote" %>
+    </div>
+  
+    <script>
+        setInterval(
+          function() {
+            $.ajax({
+              method: "get",
+              url: "/rss/team/<%= @team.id %>",
+              dataType: 'json',
+              success: function(data){
+
+                let content = ""
+                data.forEach(function(x){
+                  content += '<tr>'
+                  content += `<td><a href= "${x.href}"> ${x.title} </a></td>`
+                  content += `<td>${x.author}</td>`
+                  
+                  let seconds = x.updated;
+                  
+                  if (seconds > 86400) {
+                    let time = Math.floor(seconds/24/60/60);
+                    let remainder = Math.floor(seconds/24/60)%60;
+                    content += `<td>${time} d and ${remainder} h ago</td>`;
+                  } else if (seconds>3600) {
+                    let time = Math.floor(seconds/60/60);
+                    let remainder = Math.floor(seconds/60)%60;
+                    content += `<td>${time} h ${remainder} m ago </td>`
+                  } else {
+                    let time = seconds;
+                    content += `<td>${Math.floor(time/60)} m ago</td>`
+                  } 
+                  content += `</tr>`                 
+                })
+                $("tbody").html(content)
+              }
+            })}
+        , 10000)
+      </script>
+    
+      <table>
       <h2>Github Dashboard</h2>
 
       <div class="tbl-header"> 
         <table cellpadding="0" cellspacing="0" border="0">
-
         <thead>
-
           <tr>
             <th class="th-sm">GitHub Commit Messages</th>
             <th class="th-sm">Commited By</th>
@@ -64,7 +95,7 @@
           <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
             <% rss.entries.each do |item|%>
               <tr>
-                <td><a href= "<%= item.link.href %>"><%= item.title.content %> </a></td>
+                <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
                 <td><%= item.author.name.content%></td>
                 <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
                   <% if seconds > 86400 %>
@@ -84,17 +115,16 @@
             <% end %>
         </tbody>
       </table>
-       
-    <% end %>
-      
+    <% end %> 
+  </div>    
+  <script>
+    // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+    $(window).on("load resize ", function() {
+      var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+      $('.tbl-header').css({'padding-right':scrollWidth});
+    }).resize();
+  </script>
 
-<script>
-  // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
-$(window).on("load resize ", function() {
-  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-  $('.tbl-header').css({'padding-right':scrollWidth});
-}).resize();
-</script>
 </body>
 
 <style>
@@ -162,9 +192,6 @@ section{
 }
   iframe{
     margin-left: 10px;
-
-    
-
   }
   #twitch-embed{
     max-width: 2000px;
@@ -182,10 +209,3 @@ section{
   padding: 0px;
   }
 </style>
-
-
-
-
-
-
-

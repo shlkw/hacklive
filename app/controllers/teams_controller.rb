@@ -18,7 +18,8 @@ class TeamsController < ApplicationController
     def parse 
         @team = Team.find(params[:id])
         @rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom")
-        render json: @rss.entries.map{|x| {href: x.link.href, title: x.title.content, author: x.author.name.content, updated: x.updated.content.to_time.to_i}}
+        # byebug
+        render json: @rss.entries.map{|x| {href: x.link.href, title: x.title.content, author: x.author.name.content, updated: Time.now.to_i - x.updated.content.to_time.to_i}}
     end
     
     def new 

@@ -45,10 +45,33 @@
               url: "/rss/team/<%= @team.id %>",
               dataType: 'json',
               success: function(data){
-                console.log(data)
+
+                let content = ""
+                data.forEach(function(x){
+                  content += '<tr>'
+                  content += `<td><a href= "${x.href}"> ${x.title} </a></td>`
+                  content += `<td>${x.author}</td>`
+                  
+                  let seconds = x.updated;
+                  
+                  if (seconds > 86400) {
+                    let time = Math.floor(seconds/24/60/60);
+                    let remainder = Math.floor(seconds/24/60)%60;
+                    content += `<td>${time} d and ${remainder} h ago</td>`;
+                  } else if (seconds>3600) {
+                    let time = Math.floor(seconds/60/60);
+                    let remainder = Math.floor(seconds/60)%60;
+                    content += `<td>${time} h ${remainder} m ago </td>`
+                  } else {
+                    let time = seconds;
+                    content += `<td>${Math.floor(time/60)} m ago</td>`
+                  } 
+                  content += `</tr>`                 
+                })
+                $("tbody").html(content)
               }
             })}
-          , 2000)
+        , 10000)
       </script>
       <table>
         <thead>
@@ -58,33 +81,29 @@
             <th>Submitted Time</th>
           </tr>
         </thead>
-        <div id="update-git">
-          <tbody>
-            <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
-              
-              <% rss.entries.each do |item|%>
-                <tr>
-                  <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
-                  <td><%= item.author.name.content%></td>
-                  <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
-                    <% if seconds > 86400 %>
-                      <% time = seconds / 24 / 60 / 60 %>
-                      <% remainder = (seconds / 24 / 60)%60 %>
-                      <%=time%>d and <%=remainder%>h ago.
-                    <% elsif seconds > 3600 %>
-                      <% time = (seconds / 60 / 60 ) %>
-                      <% remainder = (seconds /60)%60 %>
-                      <%= time %>h and <%= remainder %>m ago.
-                    <% else %>
-                      <% time = (seconds / 60 ) %>
-                      <%= time %>m ago
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-
-          </tbody>
-        </div>
+        <tbody>
+          <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
+            <% rss.entries.each do |item|%>
+              <tr>
+                <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
+                <td><%= item.author.name.content%></td>
+                <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
+                  <% if seconds > 86400 %>
+                    <% time = seconds / 24 / 60 / 60 %>
+                    <% remainder = (seconds / 24 / 60)%60 %>
+                    <%=time%>d and <%=remainder%>h ago.
+                  <% elsif seconds > 3600 %>
+                    <% time = (seconds / 60 / 60 ) %>
+                    <% remainder = (seconds /60)%60 %>
+                    <%= time %>h and <%= remainder %>m ago.
+                  <% else %>
+                    <% time = (seconds / 60 ) %>
+                    <%= time %>m ago
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+        </tbody>
       </table>
     <% end %>
   </div>

@@ -13,6 +13,7 @@ class TeamsController < ApplicationController
         @team = Team.find(params[:id])
         @users = User.where(team_id: @team)
         @event = Event.find(params[:event_id])
+        @rss = "https://github.com/#{@team.github_link}/commits/master.atom"
     end
     
     def new 
@@ -70,6 +71,13 @@ class TeamsController < ApplicationController
     def downvote
         @team = Team.find(params[:id])
         @team.downvote_by current_user
+        respond_to do |format|
+            format.js
+        end
+    end
+
+    def refresh_part
+        # get whatever data you need to a variable named @data
         respond_to do |format|
             format.js
         end

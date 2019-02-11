@@ -1,4 +1,56 @@
 <body>
+  <script>
+    // function update(){
+    //   $.ajax({
+    //     type: "GET", 
+    //     url: "@rss",
+    //     timeout: 1000,
+    //     success: function(data){
+    //       $("#update-git").html(" ")
+    //     }
+    //   })
+    // }
+    setTimeout( () => {
+        setInterval(function(){
+          console.log(`${Date.now()}`);
+          lenovo();
+        }, 3000);
+      }, 10000)
+    
+//     call();
+function lenovo() {
+  // console.log(<%=@rss%>)
+  $.ajax({
+          type: "GET",
+          url: "<%= @rss %>",
+          dataType: 'json', 
+          success: function(data){
+            console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx');
+            console.log(data)
+            // $("#update-git").html(`${Date.now()}`)
+          }, 
+          error: function(error) {
+            console.log('errorXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx');
+            console.log(error)
+          }
+        });
+}
+
+
+      // setInterval(function(){alert('Hi')};
+      //   function(){
+      //   $.ajax({
+      //     type: "GET",
+      //     URL: @rss,
+      //     success: function(data){
+      //       $("#update-git").innerHTML("hello")
+      //     }
+      //   })
+      // }
+      // ,3000)
+  
+  </script>
+
   <div class="container">
     <% if @team.event_id == @event.id  %>
       <div>
@@ -38,37 +90,40 @@
       <table>
         <thead>
           <tr>
-            <th>Commit status</th>
+            <th>Commit status <%= Time.now %></th>
             <th>Team Member</th>
             <th>Submitted Time</th>
           </tr>
         </thead>
-        <tbody>
-          <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
-            <% rss.entries.each do |item|%>
-              <tr>
-                <td><a href= "<%= item.link.href %>"><%= item.title.content %> </a></td>
-                <td><%= item.author.name.content%></td>
-                <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
-                  <% if seconds > 86400 %>
-                    <% time = seconds / 24 / 60 / 60 %>
-                    <% remainder = (seconds / 24 / 60)%60 %>
-                    <%=time%>d and <%=remainder%>h ago.
-                  <% elsif seconds > 3600 %>
-                    <% time = (seconds / 60 / 60 ) %>
-                    <% remainder = (seconds /60)%60 %>
-                    <%= time %>h and <%= remainder %>m ago.
-                  <% else %>
-                    <% time = (seconds / 60 ) %>
-                    <%= time %>m ago
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-        </tbody>
+        <div id="update-git">
+          <tbody>
+            <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
+              <% rss.entries.each do |item|%>
+                <tr>
+                  <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
+                  <td><%= item.author.name.content%></td>
+                  <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
+                    <% if seconds > 86400 %>
+                      <% time = seconds / 24 / 60 / 60 %>
+                      <% remainder = (seconds / 24 / 60)%60 %>
+                      <%=time%>d and <%=remainder%>h ago.
+                    <% elsif seconds > 3600 %>
+                      <% time = (seconds / 60 / 60 ) %>
+                      <% remainder = (seconds /60)%60 %>
+                      <%= time %>h and <%= remainder %>m ago.
+                    <% else %>
+                      <% time = (seconds / 60 ) %>
+                      <%= time %>m ago
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+          </tbody>
+        </div>
       </table>
     <% end %>
   </div>
+
 </body>
 
 <style>
@@ -96,3 +151,4 @@
     text-align: center;
   }
 </style>
+

@@ -34,6 +34,9 @@ $(document).ready(function () {
 
 <body>
 <h1> <%= @events.topic %> </h1>
+    <% @event.event_images.each do |image| %>
+      <%= image_tag image.url %>
+      <%end%>
 
 <div id="carousel"> 
 <img src="images/1.jpg" id="item-1" /> 

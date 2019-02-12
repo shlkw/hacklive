@@ -49,6 +49,10 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-twitch'
 
 gem 'acts_as_votable'
+
+gem 'carrierwave-aws'
+
+gem 'aws-sdk-rails'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

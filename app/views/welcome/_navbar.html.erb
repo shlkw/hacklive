@@ -17,7 +17,6 @@
 
 
 <% if current_user == nil %>
-  <h5>Welcome New User </h5>
 <% elsif current_user.player? ||current_user.viewer? || current_user.super_admin?%>
     <%=link_to current_user do%>
   <%= image_tag current_user.avatar.thumb.to_s, class:'main_avatar' %>

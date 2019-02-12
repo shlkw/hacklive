@@ -74,7 +74,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :address, :phone_number, :date_of_birth, :about, :user_avatar, :avatar, :avatar_cache, :password_digest)
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :address, :phone_number, :date_of_birth, :about, :user_avatar, :avatar, :avatar_cache, :password_digest, :twitch_id)
     end
 
     def authorize_viewer

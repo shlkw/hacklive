@@ -7,15 +7,17 @@
   margin-bottom: 20px;
 }
 
+.backgroundbody {
+
+background-image: url("https://www.pptgrounds.com/wp-content/uploads/2012/12/Technology-Waves-Lines-Powerpoint-Template.jpg");
+min-height: 100%;
+background-repeat: no-repeat;
+background-position: 0 0;
+background-size: cover;
+}
 
 html, body {
 text-align: center;
-
-
-background-color:#f7f7f7;
-
-  background-image: url("https://www.pptgrounds.com/wp-content/uploads/2012/12/Technology-Waves-Lines-Powerpoint-Template.jpg");
-
 
 
   -webkit-perspective: 700px;
@@ -76,6 +78,7 @@ margin-top: .5em; color: #666;
   margin-top: 30px;
   margin-bottom: 0px;
   background: white;
+
 }
 
 

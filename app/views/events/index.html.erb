@@ -58,7 +58,7 @@
 
             <item tc-rotation="120" style="transform: rotateY(120deg) translateZ(500px)"> 
                 <figure>    
-                    <%= image_tag "creative/portfolio/CapitalOneHackathon2.jpg", size: "700x150" %>  
+                    <%= image_tag "https://s3.amazonaws.com/hacklive/uploads/event/event_images/1/CapitalOneHackathon2.jpg", size: "700x150" %>  
                     <center>
                     <figcaption > 
                         <%= link_to "Capital One Dev Exchange", "events/1", method: "get", class: 'challengetitle' %>
@@ -68,7 +68,7 @@
 
             <item tc-rotation="240" style="transform: rotateY(240deg) translateZ(500px)">
                 <figure>
-                    <%= image_tag "creative/portfolio/CapitalOneHackathon1.png", size: "700x150"%>
+                    <%= image_tag "https://s3.amazonaws.com/hacklive/uploads/event/event_images/2/Clover3.jpeg", size: "700x150"%>
                     <center>
                     <figcaption> 
                         <%= link_to "Clover Event", "events/2", method: "get", class: 'challengetitle' %>
@@ -78,7 +78,7 @@
 
             <item tc-rotation="180" style="transform: rotateY(180deg) translateZ(500px)">
                 <figure>
-                    <%= image_tag "creative/portfolio/Synchrony1.jpeg", size: "700x150"%> 
+                    <%= image_tag "https://s3.amazonaws.com/hacklive/uploads/event/event_images/3/Mastercard3.jpeg", size: "700x150"%> 
                     <center>
                     <figcaption> 
                         <%= link_to "MasterCard Event", "events/3", method: "get", class: 'challengetitle' %>
@@ -88,7 +88,7 @@
 
             <item tc-rotation="0" style="transform: rotateY(0deg) translateZ(500px)">
                 <figure>
-                    <%= image_tag "creative/portfolio/NextAcademy.jpg", size: "700x150"%> 
+                    <%= image_tag "https://s3.amazonaws.com/hacklive/uploads/event/event_images/7/NextAcademy.jpg", size: "700x150"%> 
                     <center> 
                     <figcaption> 
                         <%= link_to "Next Academy", "events/7", method: "get", class: 'challengetitle' %>
@@ -98,7 +98,7 @@
             
             <item tc-rotation="-60" style="transform: rotateY(-60deg) translateZ(500px)">   
                 <figure>
-                    <%= image_tag "creative/portfolio/Worldpay3.jpeg", size: "700x150"%> </a>
+                    <%= image_tag "https://s3.amazonaws.com/hacklive/uploads/event/event_images/6/Worldpay3.jpeg", size: "700x150"%> </a>
                     <center>
                     <figcaption> 
                         <%= link_to "Visa", "events/5", method: "get", class: 'challengetitle' %>
@@ -108,7 +108,7 @@
             
             <item tc-rotation="60" style="transform: rotateY(60deg)  translateZ(500px)">
                 <figure>  
-                    <%= image_tag "creative/portfolio/CapitalOneHackathon3.jpg", size: "700x150"%> </a>
+                    <%= image_tag "https://s3.amazonaws.com/hacklive/uploads/event/event_images/1/CapitalOneHackathon3.jpg", size: "700x150"%> </a>
                     <center>
                     <figcaption> 
                         <%= link_to "Wordplay", "events/6", method: "get", class: 'challengetitle' %>
@@ -125,5 +125,9 @@
     <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 </body>
 
-
+<footer class="container-fluid text-center">
+    <% if current_user.super_admin? %>
+        <h2> <%= link_to 'New Event', new_event_path %> </h2>
+    <%end%>
+</footer>
 </html>

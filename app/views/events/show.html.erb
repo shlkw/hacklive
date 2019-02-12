@@ -163,14 +163,17 @@
 <div class = "backgroundbody">
 
 <div id= "imagesContainer">
-    <%= link_to 'Join the challenge', new_event_team_path(@event), class: "button" %>
     <%= link_to "View Teams", event_teams_path(@event), class: "button" %>
+    <% if @event.id ==7 %>
+    <%= link_to 'Join the challenge', new_event_team_path(@event), class: "button" %>
+    <% end %>
 </div>
 
 <div class ="container" >
         <h2> When </h2>
             <h3> <strong> Time: </strong> <%= @events.time %> <br/>
-                 <strong> Date: </strong> <%= @events.date %> </h3> 
+                 <strong> Date: </strong> <%= @events.date %> <br/>
+                 <strong> Winning Team: </strong> <%= @events.winning_team %> </h3>
 
         <h2> <!-- <td><%= @events.winning_team %></td> --> </h2>
 

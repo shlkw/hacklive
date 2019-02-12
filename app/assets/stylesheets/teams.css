@@ -16,7 +16,8 @@ body {
 
 .container {
   justify-content: center;
-  margin: 100px;
+  position: relative;
+  display: center;
 }
 
 .button {

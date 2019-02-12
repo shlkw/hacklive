@@ -1,19 +1,20 @@
 <script src="https://embed.twitch.tv/embed/v1.js"></script>
 
 <body> 
-  <div class="team-info"> 
+  <div class="d-flex justify-content-around"> 
     <% if @team.event_id == @event.id  %>
-      Team Number: <br><%= @team.id %> <br>
       Team Name: <br><%= @team.group_name %> <br>
       Team Info: <br><%= @team.bio %> <br>
+      <div class="team_member">
       Team Members: <br>
       <% @users.each_with_index do |user,index| %>
-        <%= "#{index + 1}" %> <%= user.first_name %> <%= user.last_name %><br>
-        Twitch ID: <br><%= user.twitch_id %> <br>    
-    <% end %>
+        <%= user.first_name %> <%= user.last_name %><br>
+        Twitch ID: <%= user.twitch_id %> <br>    
+      <% end %>
+      </div>
   </div>
   
-  <div>
+  <div class="d-flex justify-content-around">
     <% @users.each_with_index do |user, i| %>
       <!-- Add a placeholder for the Twitch embed -->
       <div id="twitch-embed-<%= i %>"></div>
@@ -23,14 +24,17 @@
         <script type="text/javascript">
           $(window).on("load", function() {
             new Twitch.Embed("twitch-embed-<%= i %>", {
-              width: 1100,
-              height: 480,
+              width: 630,
+              height: 980,
               channel: "<%="#{user.twitch_id}"%>"
             });
           })
         </script>
+        <div class="text">
+        </div>
       </div>
     <% end %>
+  </div>
 
     <div id="vote">
       <%= link_to "Upvote", like_event_team_path, method: :put, remote: :true %>  
@@ -191,7 +195,7 @@ section{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
 }
   iframe{
-    margin-left: 10px;
+    /*margin: 10px;*/
   }
   #twitch-embed{
     max-width: 2000px;
@@ -202,10 +206,37 @@ section{
   }
   .team-info{
     text-align: center;
+    font-size: 25px;
+   color: #000111;
+
+
+  }
+  .d-flex{
+    font-size: 25px;
   }
   .container{
   width: 100%;
   margin: 0px;
   padding: 0px;
   }
+  .text{
+    float: left;
+  }
+  .team_member{
+     float: right
+  }
+
+
+  @media screen and (max-width: 1279px) {
+  .d-flex {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  iframe{
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
 </style>

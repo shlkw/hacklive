@@ -13,7 +13,6 @@ background-image: url("https://www.pptgrounds.com/wp-content/uploads/2012/12/Tec
 min-height: 100%;
 background-repeat: no-repeat;
 background-position: 0 0;
-background-size: cover;
 }
 
 html, body {
@@ -46,9 +45,10 @@ h1 {
 
 
 h2 {
+  padding-left: 10px;
 font-family: "Audiowide";
 background-color:#F39C12;
- color:#4E443C;
+ color: white;
  font-size: 40px;
  font-variant: small-caps;  margin-bottom: 0;
  }
@@ -73,12 +73,9 @@ margin-top: .5em; color: #666;
 
 .container {
   text-align: left;
-  width: 800px;
-  max-height: 800px;
   margin-top: 30px;
-  margin-bottom: 0px;
-  background: white;
-
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
 }
 
 

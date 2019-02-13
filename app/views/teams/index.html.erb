@@ -20,14 +20,17 @@
       <h3 class="text-uppercase"> <%= @event.topic %> Challenge </h3> 
       <br/>
 
-
-
+   
+  <div class="text">
       <% if @event.id == 7 %>
+The teams below are competing  <div class = "description"> LIVE </div>  for the grand prize. Click ahead to view the live feed for each team and to cast your votes. 
 
-      <p class="p-top-30 half-txt">The teams below are competing LIVE for the grand prize. Click ahead to view the live feed for each team and to cast your votes. </p>
       <% else %>
-      <p class="p-top-30 half-txt">The teams below have competed for the grand prize. The winner for this event is <%= @event.winning_team %>. </p>
+The teams below have competed for the grand prize. The winner for this event is    <div class = "description" > <%= @event.winning_team %>. </div> 
       <% end %>
+  </div>
+
+
 </div> 
 
 

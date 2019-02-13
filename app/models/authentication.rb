@@ -14,3 +14,5 @@ class Authentication < ApplicationRecord
     self.save
   end
 end
+
+#Authentication data. This can be used to add data. 

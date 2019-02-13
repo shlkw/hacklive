@@ -53,9 +53,20 @@ p {
     line-height: 1.5;
 }
 
+header {
+    margin: 0;
+}
+
+.headercaption {
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
 #about {
 
     background-color: #f05f40; 
+    margin: 0;
 }
 
 
@@ -100,6 +111,7 @@ aside {
     -webkit-transition: all .35s;
     -moz-transition: all .35s;
     transition: all .35s;
+    margin: 0;
 }
 
 
@@ -206,13 +218,44 @@ aside {
 }
 
 
+.videoBgWrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.videoBg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+ @media (min-aspect-ratio: 16/9) {
+  .videoBg{
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .videoBg {
+    width: auto;
+    height: 100%;
+  }
+}
+
 header {
     position: relative;
     width: 100%;
     min-height: auto;
     text-align: center;
     color:  #DCDCDC ;
-    background-image: asset-data-url("creative/header.jpg");
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -226,6 +269,7 @@ header .header-content {
     width: 100%;
     padding: 100px 15px;
     text-align: center;
+    color: white;
 }
 
 header .header-content .header-content-inner h1 {
@@ -298,11 +342,15 @@ header .header-content .header-content-inner p {
     margin-bottom: 0;
 }
 
+#portfolio {
+    background: white;
+    margin: 0;
+}
+
 .portfolio-box {
     display: block;
     position: relative;
     margin: 0 auto;
-    max-width: 300px;
 }
 
 .portfolio-box .portfolio-box-caption {
@@ -347,7 +395,7 @@ header .header-content .header-content-inner p {
 
 .portfolio-box:hover .portfolio-box-caption {
     opacity: 1;
-    width: 300px;
+   
 }
 
 @media(min-width:768ipx) {
@@ -362,8 +410,9 @@ header .header-content .header-content-inner p {
 
 
 .img-responsive {
-  width: 300px;
-  height: 200px;
+  width: 500px;
+  height: 250px;
+  margin: 0 auto;
 }
 
 .call-to-action h2 {
@@ -529,4 +578,9 @@ body {
     border-radius: 50px;
     opacity: 0.8;
     width: 50px;
+}
+
+#contact {
+    background: white;
+    margin: 0;
 }

@@ -5,13 +5,15 @@
 
 body {
 
-background-image: url("https://i.ibb.co/g4krDPY/Screen-Shot-2019-02-12-at-1-15-32-PM.png");
+background-image: url("https://i.ibb.co/HXXm3Fh/Screen-Shot-2019-02-12-at-11532-PM.png");
 min-height: 100%;
 background-repeat: no-repeat;
 background-position: 0 0;
 background-size: cover;
 
+
 }
+
 
 .teaminfo {
 /*background: white;
@@ -24,7 +26,9 @@ font-weight: bold;
 font-size: 20px;
 margin-left: 60px;
 margin-top: 20px;
-margin-bottom: 10px;
+margin-bottom: 30px;
+background-color: rgba(255, 255, 255, 0.8);
+
 
 }
 
@@ -122,7 +126,9 @@ section{
   width: 100%;
   margin: 0px;
   padding: 0px;
+
   }
+
   .text{
     float: left;
   }

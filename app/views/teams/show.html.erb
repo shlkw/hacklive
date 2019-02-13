@@ -1,19 +1,20 @@
- <%= stylesheet_link_tag 'teamshow.css' %>
 
- <script src="https://embed.twitch.tv/embed/v1.js"> </script> 
+<%= stylesheet_link_tag 'teamshow.css' %>
+<script src="https://embed.twitch.tv/embed/v1.js"></script>
 
 <body> 
 
-<div class = "teaminfo">
+  <div class = "teaminfo">
+
     <% if @team.event_id == @event.id  %>
-     <u>Team:</u> <%= @team.group_name %><br>
-     <u>Bio:</u> <%= @team.bio %> <br> <br>
-     <u>Team Members</u><br>
+      <u>Team:</u> <%= @team.group_name %><br>
+      <u>Bio:</u> <%= @team.bio %> <br> <br>
+      <u>Team Members</u><br>
       <% @users.each_with_index do |user,index| %>
-     <div class="name"> <%= user.first_name %> <%= user.last_name %> </div> 
+        <div class="name"> <%= user.first_name %> <%= user.last_name %></div> 
         Twitch ID: <%= user.twitch_id %> <br>   
-      <% end %>
-</div>  
+    <% end %>
+  </div>  
 
   <div class="d-flex justify-content-around">
     <% @users.each_with_index do |user, i| %>
@@ -37,92 +38,93 @@
     <% end %>
   </div>
 
-    <div id="vote">
-      <%= link_to "Upvote", like_event_team_path, method: :put, remote: :true, class: "button" %>  
-      <%= link_to "Downvote", dislike_event_team_path, method: :put, remote: :true, class: "button" %><br>
-      <br>
-      <%= render partial: "vote" %>
-    </div>
+  <div id="vote">
+    <%= link_to "Upvote", like_event_team_path(event_id: @event.id, id: @team.id), method: :put, remote: :true, class: "button" %>  
+    <%= link_to "Downvote", dislike_event_team_path(event_id: @event.id, id: @team.id), method: :put, remote: :true, class: "button" %><br>
+    <br>
+    <%= render partial: "vote" %>
+  </div>
   
-    <script>
-        setInterval(
-          function() {
-            $.ajax({
-              method: "get",
-              url: "/rss/team/<%= @team.id %>",
-              dataType: 'json',
-              success: function(data){
+  <script>
+    setInterval(
+      function() {
+        $.ajax({
+          method: "get",
+          url: "/rss/team/<%= @team.id %>",
+          dataType: 'json',
+          success: function(data){
 
-                let content = ""
-                data.forEach(function(x){
-                  content += '<tr>'
-                  content += `<td><a href= "${x.href}"> ${x.title} </a></td>`
-                  content += `<td>${x.author}</td>`
-                  
-                  let seconds = x.updated;
-                  
-                  if (seconds > 86400) {
-                    let time = Math.floor(seconds/24/60/60);
-                    let remainder = Math.floor(seconds/24/60)%60;
-                    content += `<td>${time} d and ${remainder} h ago</td>`;
-                  } else if (seconds>3600) {
-                    let time = Math.floor(seconds/60/60);
-                    let remainder = Math.floor(seconds/60)%60;
-                    content += `<td>${time} h ${remainder} m ago </td>`
-                  } else {
-                    let time = seconds;
-                    content += `<td>${Math.floor(time/60)} m ago</td>`
-                  } 
-                  content += `</tr>`                 
-                })
-                $("tbody").html(content)
-              }
-            })}
-        , 10000)
-      </script>
-    
-      <table>
-      <h2>Github Dashboard</h2>
-
-      <div class="tbl-header"> 
-        <table cellpadding="0" cellspacing="0" border="0">
-        <thead>
-          <tr>
-            <th class="th-sm">GitHub Commit Messages</th>
-            <th class="th-sm">Commited By</th>
-            <th class="th-sm">Submitted At</th>
-          </tr>
-        </thead>
-      </table>
+            let content = ""
+            data.forEach(function(x){
+              content += '<tr>'
+              content += `<td><a href= "${x.href}"> ${x.title} </a></td>`
+              content += `<td>${x.author}</td>`
+              
+              let seconds = x.updated;
+              
+              if (seconds > 86400) {
+                let time = Math.floor(seconds/24/60/60);
+                let remainder = Math.floor(seconds/24/60)%60;
+                content += `<td>${time} d and ${remainder} h ago</td>`;
+              } else if (seconds>3600) {
+                let time = Math.floor(seconds/60/60);
+                let remainder = Math.floor(seconds/60)%60;
+                content += `<td>${time} h ${remainder} m ago </td>`
+              } else {
+                let time = seconds;
+                content += `<td>${Math.floor(time/60)} m ago</td>`
+              } 
+              content += `</tr>`                 
+            })
+            $("tbody").html(content)
+          }
+        })}
+    , 10000)
+  </script>
+  
+  <table>
+    <h2>Github Dashboard</h2>
+    <div class="tbl-header"> 
+      <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th class="th-sm">GitHub Commit Messages</th>
+          <th class="th-sm">Commited By</th>
+          <th class="th-sm">Submitted At</th>
+        </tr>
+      </thead>
     </div>
-    <div class="tbl-content" >
-       <table cellpadding="0" cellspacing="0" border="0">
-        <tbody>
-          <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
-            <% rss.entries.each do |item|%>
-              <tr>
-                <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
-                <td><%= item.author.name.content%></td>
-                <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
-                  <% if seconds > 86400 %>
-                    <% time = seconds / 24 / 60 / 60 %>
-                    <% remainder = (seconds / 24 / 60)%60 %>
-                    <%=time%>d and <%=remainder%>h ago.
-                  <% elsif seconds > 3600 %>
-                    <% time = (seconds / 60 / 60 ) %>
-                    <% remainder = (seconds /60)%60 %>
-                    <%= time %>h and <%= remainder %>m ago.
-                  <% else %>
-                    <% time = (seconds / 60 ) %>
-                    <%= time %>m ago
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-        </tbody>
-      </table>
-    <% end %> 
+  </table>
+    
+  <div class="tbl-content" >
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        <%rss = RSS::Parser.parse("https://github.com/#{@team.github_link}/commits/master.atom", false)%>
+          <% rss.entries.each do |item|%>
+            <tr>
+              <td><a href= "<%= item.link.href %>"> <%= item.title.content %> </a></td>
+              <td><%= item.author.name.content%></td>
+              <td><% (seconds = Time.now.to_i - item.updated.content.to_time.to_i) %> 
+                <% if seconds > 86400 %>
+                  <% time = seconds / 24 / 60 / 60 %>
+                  <% remainder = (seconds / 24 / 60)%60 %>
+                  <%=time%>d and <%=remainder%>h ago.
+                <% elsif seconds > 3600 %>
+                  <% time = (seconds / 60 / 60 ) %>
+                  <% remainder = (seconds /60)%60 %>
+                  <%= time %>h and <%= remainder %>m ago.
+                <% else %>
+                  <% time = (seconds / 60 ) %>
+                  <%= time %>m ago
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %> 
+      </tbody>
+    </table>
   </div>    
+  
   <script>
     // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
     $(window).on("load resize ", function() {
@@ -131,8 +133,8 @@
     }).resize();
   </script>
 
-<footer>
-</footer>
+  <footer>
+  </footer>
 
 </body>
 
